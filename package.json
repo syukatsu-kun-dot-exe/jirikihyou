@@ -1,0 +1,19 @@
+{
+  "name": "jirikihyou",
+  "private": true,
+  "version": "0.1.0",
+  "description": "beatmania IIDX 地力表サイト (Vite + React / Hono / Prisma / PostgreSQL)",
+  "packageManager": "pnpm@9.15.4",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "docker compose up --build",
+    "down": "docker compose down",
+    "typecheck": "pnpm -r --if-present typecheck",
+    "build": "pnpm -r --if-present build",
+    "db:migrate": "docker compose exec api pnpm --filter api exec prisma migrate dev",
+    "db:seed": "docker compose exec api pnpm --filter api db:seed",
+    "db:studio": "docker compose exec api pnpm --filter api exec prisma studio --hostname 0.0.0.0 --port 5555"
+  }
+}

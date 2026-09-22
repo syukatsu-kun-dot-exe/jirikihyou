@@ -1,0 +1,57 @@
+name: jirikihyou
+
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-jirikihyou}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-jirikihyou}
+      POSTGRES_DB: ${POSTGRES_DB:-jirikihyou}
+    ports:
+      - "${DB_PORT:-5432}:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-jirikihyou} -d ${POSTGRES_DB:-jirikihyou}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    environment:
+      NODE_ENV: development
+      PORT: 3000
+      DATABASE_URL: postgresql://${POSTGRES_USER:-jirikihyou}:${POSTGRES_PASSWORD:-jirikihyou}@db:5432/${POSTGRES_DB:-jirikihyou}
+    ports:
+      - "${API_PORT:-3000}:3000"
+      - "5555:5555" # prisma studio 用
+    volumes:
+      # ソースだけをマウント (node_modules はイメージ側を使う)
+      - ./apps/api/src:/app/apps/api/src
+      - ./apps/api/prisma:/app/apps/api/prisma
+      - ./packages/shared/src:/app/packages/shared/src
+    depends_on:
+      db:
+        condition: service_healthy
+
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+    environment:
+      VITE_PROXY_TARGET: http://api:3000
+    ports:
+      - "${WEB_PORT:-5173}:5173"
+    volumes:
+      - ./apps/web/src:/app/apps/web/src
+      - ./apps/web/index.html:/app/apps/web/index.html
+      - ./apps/web/vite.config.ts:/app/apps/web/vite.config.ts
+      - ./packages/shared/src:/app/packages/shared/src
+    depends_on:
+      - api
+
+volumes:
+  db-data:

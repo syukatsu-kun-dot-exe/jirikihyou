@@ -1,0 +1,120 @@
+:root {
+  color-scheme: dark;
+  --bg: #0b1020;
+  --card: #161d33;
+  --text: #e6e9f2;
+  --muted: #8a93ad;
+  --accent: #4cc9f0;
+  --ok: #2ecc71;
+  --ng: #e74c3c;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans JP", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px 16px 64px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  letter-spacing: 0.04em;
+}
+
+h2 {
+  margin: 0 0 4px;
+}
+
+.badge {
+  font-size: 0.8rem;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid currentColor;
+}
+.badge.ok {
+  color: var(--ok);
+}
+.badge.ng {
+  color: var(--ng);
+}
+
+.muted {
+  color: var(--muted);
+}
+.small {
+  font-size: 0.85rem;
+}
+.error {
+  color: var(--ng);
+}
+
+.tier {
+  margin-top: 24px;
+}
+
+.tier-name {
+  margin: 0 0 8px;
+  padding-left: 10px;
+  border-left: 4px solid var(--accent);
+  font-size: 1.05rem;
+}
+.tier-name.kojinsa {
+  border-color: #f4a261;
+}
+.tier-name.unrated {
+  border-color: var(--muted);
+}
+
+.grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 8px;
+}
+
+.card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--card);
+  border-radius: 6px;
+  padding: 8px 12px;
+}
+
+.level {
+  color: var(--accent);
+  font-weight: 700;
+  min-width: 2.4em;
+}
+.level small {
+  margin-left: 2px;
+  font-size: 0.7em;
+  color: var(--muted);
+}
+
+.title {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}

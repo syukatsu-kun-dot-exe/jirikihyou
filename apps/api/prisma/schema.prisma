@@ -1,0 +1,109 @@
+// 地力表サイトの DB スキーマ (PostgreSQL)
+//
+// Song  : 楽曲マスタ
+// Chart : 譜面 (SP/DP × 難易度)。地力表は「譜面」に対して付く
+// Sheet : 表 (例: SP☆12 ノマゲ参考表)
+// Tier  : 表の中の帯 (例: 地力S+, 個人差A)
+// SheetEntry : 表の1マス (どの譜面がどの帯にいるか)
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum PlayStyle {
+  SP
+  DP
+}
+
+enum Difficulty {
+  BEGINNER
+  NORMAL
+  HYPER
+  ANOTHER
+  LEGGENDARIA
+}
+
+enum TierKind {
+  JIRIKI // 地力
+  KOJINSA // 個人差
+  UNRATED // 難易度未定
+}
+
+model Song {
+  id        Int      @id @default(autoincrement())
+  title     String
+  artist    String?
+  genre     String?
+  /// 初出バージョン番号 (1 = 1st style ... )。不明なら null
+  version   Int?
+  /// 表記用 BPM ("150", "90-180" など)
+  bpm       String?
+  charts    Chart[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([title])
+}
+
+model Chart {
+  id           Int          @id @default(autoincrement())
+  songId       Int
+  song         Song         @relation(fields: [songId], references: [id], onDelete: Cascade)
+  playStyle    PlayStyle
+  difficulty   Difficulty
+  level        Int
+  notes        Int?
+  sheetEntries SheetEntry[]
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+
+  @@unique([songId, playStyle, difficulty])
+  @@index([playStyle, level])
+}
+
+model Sheet {
+  id          Int          @id @default(autoincrement())
+  slug        String       @unique
+  name        String
+  description String?
+  playStyle   PlayStyle
+  level       Int
+  tiers       Tier[]
+  entries     SheetEntry[]
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+}
+
+model Tier {
+  id      Int          @id @default(autoincrement())
+  sheetId Int
+  sheet   Sheet        @relation(fields: [sheetId], references: [id], onDelete: Cascade)
+  name    String
+  /// 表示順 (小さいほど上 = 難しい)
+  order   Int
+  kind    TierKind     @default(JIRIKI)
+  entries SheetEntry[]
+
+  @@unique([sheetId, order])
+  @@unique([sheetId, name])
+}
+
+model SheetEntry {
+  id        Int      @id @default(autoincrement())
+  sheetId   Int
+  sheet     Sheet    @relation(fields: [sheetId], references: [id], onDelete: Cascade)
+  tierId    Int
+  tier      Tier     @relation(fields: [tierId], references: [id], onDelete: Cascade)
+  chartId   Int
+  chart     Chart    @relation(fields: [chartId], references: [id], onDelete: Cascade)
+  note      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([sheetId, chartId])
+}
