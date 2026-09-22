@@ -1,0 +1,2834 @@
+{
+  "slug": "sp12-normal",
+  "name": "SP☆12 ノマゲ参考表",
+  "description": "SP☆12 のノーマルゲージクリア難易度を地力ランクで分類した参考表",
+  "playStyle": "SP",
+  "level": 12,
+  "source": {
+    "name": "デラレコ (record.iidx.app)",
+    "url": "https://record.iidx.app/sheets/1",
+    "fetchedAt": "2026-09-23"
+  },
+  "tiers": [
+    {
+      "name": "地力S+",
+      "kind": "JIRIKI",
+      "entries": [
+        {
+          "title": "Beyond Evolution",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "DEATH†ZIGOQ ～怒りの高速爆走野郎～",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "Do it!! Do it!!",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "GuNGNiR",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "Illegal Function Call",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "KAMAITACHI",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "Mare Nectaris",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "n/a",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Sigmund",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "Somnidiscotheque",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "SμG@R RU$#",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "THE BLACK KNIGHT",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "The Limbo",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "Verflucht",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "XHRONOXAPSULΞ",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "卑弥呼",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "惑星鉄道",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "疾風迅雷",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "聖人の塔",
+          "difficulty": "LEGGENDARIA"
+        }
+      ]
+    },
+    {
+      "name": "個人差S+",
+      "kind": "KOJINSA",
+      "entries": [
+        {
+          "title": "DIAVOLO",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Plan 8",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "RAGE feat.H14 of LEONAIR",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "SAMURAI-Scramble",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "Skratch Education Lv-1",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "灼熱Beach Side Bunny",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "灼熱 Pt.2 Long Train Running",
+          "difficulty": "ANOTHER"
+        }
+      ]
+    },
+    {
+      "name": "地力S",
+      "kind": "JIRIKI",
+      "entries": [
+        {
+          "title": "≡+≡",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "Binary Black Hole",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Carmina",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Chrono Diver -PENDULUMs-",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Confiserie",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Dances with Snow Fairies",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "Elemental Creation",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "EMERALDAS",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Everlasting Message",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "fixer",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "FiZZλ_POT!0N",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Go Ahead!!",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "GO OVER WITH GLARE -ROOTAGE 26-",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "hard-wired",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "ICARUS",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "IX",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "KAISER PHOENIX",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "Lisa-RICCIA",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "Lost Souls",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "MEGAERA",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Override",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "perditus†paradisus",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Phoenix",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "Sigmund",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Sinus Iridum",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "#The_Relentless",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "TRANOID",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "X-DEN",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Xerulean",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "お米の美味しい炊き方、そしてお米を食べることによるその効果。",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "共鳴遊戯の華",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "千年ノ理",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "嘆きの樹",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "天使のカンタータ -Cantata of Angels-",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "栄冠のカンパネラ",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "焔極OVERKILL",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "表裏一体！？怪盗いいんちょの悩み",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "駅猫のワルツ",
+          "difficulty": "ANOTHER"
+        }
+      ]
+    },
+    {
+      "name": "個人差S",
+      "kind": "KOJINSA",
+      "entries": [
+        {
+          "title": "BroGamer",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "ECHIDNA",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "EROICA",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Level 5",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Lords Of The Roundtable",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Makin' It",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Timepiece phase II (CN Ver.)",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Time to Air",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "WHA",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "ディスコルディア",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "烽火連天の刃",
+          "difficulty": "LEGGENDARIA"
+        }
+      ]
+    },
+    {
+      "name": "地力A+",
+      "kind": "JIRIKI",
+      "entries": [
+        {
+          "title": "∀",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "-65℃",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Almagest",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Ambivalent Vermilia",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Amor∞Fati",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Ancient Scapes",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "Anisakis -somatic mutation type\"Forza\"-",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "B4U(BEMANI FOR YOU MIX)",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "Bad Encryption",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Blue Spring Express",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Bow shock!!",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "CADENZA",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "ChaserXX",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "CHRONO DIVER -NORNIR-",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "CODE:0",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "CONTRACT",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "Dans la nuit de l'eternite",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "[ ]DENTITY",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "EBONY & IVORY",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "Flashes",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "Glitch N Ride",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "God Mind",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "HYENA",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "Ignis†Irae",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Initiation",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "LIGHTNING STRIKES",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "LOUDER ROLLING THUNDER",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Memoria Obscura",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "NZM",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "PARADISE LOST",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Quakes",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "REVOLVER",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "Satellite Burst",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Saturn",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "Smashing Wedge",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "SOLAR ECLIPSE",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "SOLID WYVERN",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "The Clown of 24stairs",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "THE F∀UST",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Tiempo Loco",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "VANESSA",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "VOID",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "voltississimo",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Vulnerability",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "ιgniЯRuina",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "⁽⁽ଘ( ˙꒳˙ )ଓ⁾⁾ beyond reason",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "がっつり陰キャ!? 怪盗いいんちょの億劫^^;",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "シムルグの目醒め",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "スキッテイエェエエェ!!!!",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "恋する☆宇宙戦争っ！！",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "煉獄のエルフェリア",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "色を喪った街",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "超青少年ノ為ノ超多幸ナ超古典的超舞曲",
+          "difficulty": "LEGGENDARIA"
+        }
+      ]
+    },
+    {
+      "name": "個人差A+",
+      "kind": "KOJINSA",
+      "entries": [
+        {
+          "title": "BLACK.by X-Cross Fade",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "CoMAAAAAAA",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "invoker",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "Level 3",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Level 4",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Red. by Jack Trance",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Reflux",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "RUINA",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "SCREW // owo // SCREW",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "The Chase",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "THE PEERLESS UNDER HEAVEN",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Thor's Hammer",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "TITANS RETURN",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "TOMAHAWK",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Urban Constellations",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "ZED",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "Zirkfied",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "ピアノ独奏無言歌 \"灰燼\"",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "真 地獄超特急 -HELL or HELL-",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "蛇神",
+          "difficulty": "LEGGENDARIA"
+        }
+      ]
+    },
+    {
+      "name": "地力A",
+      "kind": "JIRIKI",
+      "entries": [
+        {
+          "title": "255",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "ABSOLUTE EVIL",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "ALTERNATOR",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Artist",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Bad Maniacs",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "BEAT PRISONER",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "BLACK or WHITE?",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Blue Rain",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "Close the World feat.a☆ru",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "COSMIC RAY",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Cross Fire",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "DEATH†ZIGOQ ～怒りの高速爆走野郎～",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Demon March",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Despair of ELFERIA",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Devil's Gear",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "DORNWALD ～Junge～",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Dynamite",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Elektrick U-Phoria",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "EXUSIA",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Feel The Beat",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "four pieces of heaven",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "G59",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Ganymede",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "GENE",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "GuNGNiR",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "HADES",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "HAERETICUS",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "HEROES",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "KAISER PHOENIX",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Life Is A Game ft.DD\"ナカタ\"Metal",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "LOCUS OF THE TRAVEL",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "MENDES",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "NOIXIA",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "OMEGA",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Painful Fate",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "PERFECT GREAT!!",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "POLKAMANIA",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "quell～the seventh slave～",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Secrets",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "SOLID STATE SQUAD",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "suspicions",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "THE BRAVE MUST DIE",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "The Rebellion of Sequencer",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Triple Counter",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "TRIUMPH",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Uaigh Gealai",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "uen",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Verflucht",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Violet Pulse",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "VOLAQUAS",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "waxing and wanding",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "ZEPHYRANTHES",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "お菓子の王国",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "ピアノ協奏曲第1番”蠍火” (BlackY Remix)",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "世界の果てに約束の凱歌を -ReUnion-",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "二人ノ廃城幽踊宴",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "仮想空間の旅人たち",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "伐折羅-vajra-",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "冥",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "君のハートにロックオン",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "天空の夜明け",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "烽火連天の刃",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "紫陽花 -AZISAI-",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "華麗なる大犬円舞曲",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "金野火織の金色提言",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "閠槞彁の願い",
+          "difficulty": "ANOTHER"
+        }
+      ]
+    },
+    {
+      "name": "個人差A",
+      "kind": "KOJINSA",
+      "entries": [
+        {
+          "title": "199024club -Re:BounceKiller-",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "2 Beasts Unchained",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "3y3s",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "AIR RAID FROM THA UNDAGROUND",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "Cult Invitation",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Don't believe the hype",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "INAZUMA",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "Level One",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Miracle 5ympho X",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "Pinky Happy Crazy",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Purple Perplex",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Scripted Connection⇒ A mix",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "STEEL NEEDLE",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "TECHNOPHOBIA",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "カジノファイヤーことみちゃん",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "バッド・スイーツ、バッド・ドリーム",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "ピアノ協奏曲第１番”蠍火”",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "音楽",
+          "difficulty": "ANOTHER"
+        }
+      ]
+    },
+    {
+      "name": "地力B+",
+      "kind": "JIRIKI",
+      "entries": [
+        {
+          "title": "2 Be Continued",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "ALBA -黎明-",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "ANCHOR",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Antigravity",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "BitRacer",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Dances with Snow Fairies",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "DEADHEAT",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Drop Syndicate",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Empire of Fury",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "fallen leaves -IIDX edition-",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Flamingo",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Grand Chariot",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "GRAVITON",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "JOMANDA",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "kors k's How to make OTOGE CORE 「LONG」",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Macho Monky",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "neu",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "NEW GENERATION -もう、お前しか見えない-",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "O/D*20",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "One More Lovely",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "ORCA",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "PLASMA SOUL NIGHT feat. Nana Takahashi / 709sec.",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Resonant",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Rise'n Beauty",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "Shooting Fireball",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Snakey Kung-fu",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "STARLIGHT DANCEHALL",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "StrayedCatz",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Submerge Serenade",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "SYNC-ANTHEM",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "The Limbo",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "TOXIC VIBRATION",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Twelfth Style",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "Unbelief",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "UNDO THE NIGHT",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Visterhv",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Xb10r",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "YAKSHA",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "キャトられ恋はモ～モク",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "ぞうしょく！？マイデンティティ",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "ちょえちょえまぎか",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "ミュージック・アワー",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "今宵、ロマンス横丁。",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "寝起きヤシの木",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "抱きしめてモナムール",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "東京神話",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "津軽雪",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "海神",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "†渚の小悪魔ラヴリィ～レイディオ†(IIDX EDIT)",
+          "difficulty": "ANOTHER"
+        }
+      ]
+    },
+    {
+      "name": "個人差B+",
+      "kind": "KOJINSA",
+      "entries": [
+        {
+          "title": "Be quiet",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "Boomy and The Boost",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "DIAMOND CROSSING",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "GiGaGaHell",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Hollywood Galaxy",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Inferno of Fomalhaut",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Marie Antoinette",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "Peaktime Booster",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Snake Stick",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "STULTI",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "水鏡の異界",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "火影",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "灼熱Beach Side Bunny (かめりあ's \"Summertime D'n'B\" Remix)",
+          "difficulty": "ANOTHER"
+        }
+      ]
+    },
+    {
+      "name": "地力B",
+      "kind": "JIRIKI",
+      "entries": [
+        {
+          "title": "1116",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "24h Endurance Race",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "AA -rebuild-",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "A MINSTREL ～ ver. short-scape ～",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "Angel's Ladder",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Arkadia",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "ASIAN VIRTUAL REALITIES (MELTING TOGETHER IN DAZZLING DARKNESS)",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "BIGWAVERS",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "BITTER CHOCOLATE STRIKER",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "BLUE DRAGON(雷龍RemixIIDX)",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Broken Sword",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Burning Flame",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "Candy Galy",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "cinder",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Close the World feat.a☆ru",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "CODE:1 [revision1.0.1]",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Colorful Cookie",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "destination",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Devilz Staircase",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "DropZ-Line-",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "DUAL STRIKER",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "entelecheia",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Flying Castle",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "GENE",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "GUILTY",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "HARD BRAIN",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "I",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Illusionary Waterlily",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "INHERITANCE",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "INSOMNIA",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "KILL EACH OTHER",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "LASER CRUSTER (IGNITE REMIX)",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Lightspeed",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Little Little Princess",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "#MAGiCVLGiRL_TRVP_B3VTZ",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "MAX 300",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "MAX 360",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "MAXIMUM CHEAT GIRL",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Monopole.",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "NITROUS CANNON",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "One for All",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "OTENAMI Hurricane",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Proof of the existence",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "QUANTUM TELEPORTATION",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "quaver♪",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "ra'am",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "refrain",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Regina vespaE",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "reunion",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "ruin of opals",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Session 9 -Chronicles-",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Sky High",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Slipstream",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Smalt #28598F",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Super Duper Racers",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "Super Rush",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "THE DEEP STRIKER",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "The Last Apocalypse",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Timepiece phase II",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "T-REX vs Velociraptor (In the Far east euphoria)",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Triple Cross",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Ubertreffen",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "u gotta beat",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Valanga",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Vermilion Carol",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Vitrum",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Welcome",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "Without Heaven",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "X",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Xlo",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Xperanza",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "yellow head joe",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "ΕΛΠΙΣ",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "アラビアン ハイパー ナイト",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "たまゆら",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "ラブコメトキドキシリアス",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "リリーゼと炎龍レーヴァテイン",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "不沈艦CANDY",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "儚キ戀ノ幻想譚",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "少年は空を辿る",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "廿",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "恋愛＝精度×認識力",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "未完成ノ蒸氣驅動乙女",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "神謳 -RESONANCE-",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "童話回廊",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "轟け！恋のビーンボール！！",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "電腦都市",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "魅惑のYUMMYスイーツ",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "龍と少女とデコヒーレンス",
+          "difficulty": "LEGGENDARIA"
+        }
+      ]
+    },
+    {
+      "name": "個人差B",
+      "kind": "KOJINSA",
+      "entries": [
+        {
+          "title": "AO-1",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Caldwell 99",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "FAKE TIME",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Flashes",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "IMPLANTATION",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Papilio ulysses",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "PARANOiA ～HADES～",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Red. by Full Metal Jacket",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "VOX UP",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Watch Out Pt.2",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Y&Co. is dead or alive",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "アストライアの双皿",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "ミラージュ・レジデンス",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "摩天楼",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "逆月",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "雪上断火",
+          "difficulty": "ANOTHER"
+        }
+      ]
+    },
+    {
+      "name": "地力C",
+      "kind": "JIRIKI",
+      "entries": [
+        {
+          "title": "Aftermath",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "AKASHIC BREAK",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Always We Trust In You",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Amazing Mirage",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "Ancient Scapes",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Arabian Rave Night",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "CaptivAte～浄化～",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "Chaotoxin",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "chaplet -IIDX re:build-",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Cosmic Cat",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "COSMIC V3LOCITY",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "DARK LEGACY",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "dAuntl3ss",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "DAY DREAM",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "DIVINE JUDGEMENT",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "DOMINION",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Dr. Chemical & Killing Machine",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Dusk Endir",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "EBONY & IVORY",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Evans",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "EX-MASSIVE FIGHTER",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "EYE OF THE HEAVEN",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "FANTASTIC THREE",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "FlyAway",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Friction[!]Function",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "From Human Blood",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "FUZIN RIZIN",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Ghost Pulse",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Godspeed",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "GOLDEN CROSS",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Gravigazer",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Here We Go Now",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Idola",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "innocent revolver",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Invitation from Mr.C",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Konzert V",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Last Dance",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Lethal Weapon",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "L.F.O",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "LIVE DRIVING!! feat. 花たん",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "LOST TECHNOLOGIE",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "M4K3 1T B0UNC3",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "MARLIN",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Mid-Corner (Magic Maker)",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Mighty Beat Monsterz",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Million Dollar",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "NEO GENERATOR SEVEN",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Nightmare before oversleep",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "NNRT",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Ou Legends",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Plazma",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "Push on Beats!～音ゲの国のeX-ストリーマー～",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "rage against usual",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "RAIN",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Rave Patroller",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "RINNE",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Roar of Chronos",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "rommmo",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "SAY BAY",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Seven Times Four",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Sol Cosine Job 2",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "SOLID STATE SQUAD -RISEN RELIC REMIX-",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Sounds Of Summer",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Space Battleship S4TO",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "spiral galaxy",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "Super Freak",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Sword of Vengeance",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "TECHNO Style Essentials",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "THANK YOU FOR PLAYING",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "THE DAY OF JUBILATIONS",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "thunder HOUSE NATION Remix",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "THUNDERSTRIKE",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Vinculum stellarum",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Viridian",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "We're so Happy (P*Light Remix) IIDX ver.",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "WONDER WALKER",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Ypsilon",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "イザナミノナゲキ",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "クレッシェンド",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "シュレーディンガーの猫",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "それは花火のような恋",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "トリカゴノ鳳凰",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "ビビッド ☆+*。キラキライム",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "めいさいアイドル☆あいむちゃん♪",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "夏色DIARY - L.E.D.-G STYLE MIX -",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "子供の落書き帳",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "新宝島",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "旋律のドグマ～Miserables～",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "深淵に捧ぐレクイエム",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "疾風迅雷",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "神っぽいな",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "禊",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "華爛漫 -Flowers-",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "電人、暁に斃れる。",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "電光",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "龍王の霊廟(Mausoleum Of The Primal Dragon)",
+          "difficulty": "LEGGENDARIA"
+        }
+      ]
+    },
+    {
+      "name": "個人差C",
+      "kind": "KOJINSA",
+      "entries": [
+        {
+          "title": "Adularia",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "BLUE MIRAGE",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "B.O.D.Y.",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Ember Lights",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "GAME ON",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "hora de verdad",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Level 2",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "MAD ATTACK",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "New Castle Legions",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "ONIGOROSHI",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "PLEASE DON'T GO",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Rave*it!! Rave*it!!",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Sense 2007",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "TOGAKUSHI",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "ZZ",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "スーパー戦湯ババンバーン",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "ハイテックトキオ",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "海神",
+          "difficulty": "ANOTHER"
+        }
+      ]
+    },
+    {
+      "name": "地力D",
+      "kind": "JIRIKI",
+      "entries": [
+        {
+          "title": "AA",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "ACT0",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "ALBIDA",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Aqvion",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Astra Blaze",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "ATHER",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "Beat Radiance",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "Begin",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "BLAZING_LAZER",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Bring The Fire",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Broken",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Catch Our Fire!",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "#CMFLG",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Dahlia",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Disco Killer Music Lover",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Double Dribble",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Drastic Dramatic",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "DRUNK MONKY",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "EVANESCENT",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Feel The Beat",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Fegrix",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "fffff",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "FIRE FIRE",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "frequent",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "GAIA",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Go Beyond!!",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Highcharge Divolt",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "HyperTwist",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Kung-fu Empire",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "Matt Silver",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Megalara Garuda",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Meissa",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "No Border",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Nothing but Theory",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "ONE AND ONLY",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "oratio",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Out of Control",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Parvati",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Persephone",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "POSSESSION",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "PUNISHER",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "RALLY '25",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Rampage",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Rave Cannon",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "RIZING-GAMERS.",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Say YEEEAHH",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Scripted Connection⇒ A mix",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Scripted Connection⇒ H mix",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "Silver Bullet",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "SOLID STATE SQUAD",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "SpaceLand☆TOYBOX",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Stereo Beasts",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "The Least 100sec",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "The Sampling Paradise",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Thunderbolt",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "TIEFSEE",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Trill auf G",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "True Blue",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Umbral",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "V",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "カゴノトリ～弐式～",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "かわいいだけじゃだめですか？",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "グッバイ宣言",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "〆",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "ベンガル vs. アムール Battle",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "九尾狐夜行",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "刃図羅",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "即席！脳直★ミュージックシステム",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "天邪鬼",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "恋する☆宇宙戦争っ！！",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "最小三倍完全数",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "狂イ咲ケ焔ノ華",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "神のシナリオ",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "紫陽花 -AZISAI-",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "終焔のClaudia",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "聖人の塔",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "華蝶風雪",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "表裏一体！？怪盗いいんちょの悩み",
+          "difficulty": "ANOTHER"
+        }
+      ]
+    },
+    {
+      "name": "個人差D",
+      "kind": "KOJINSA",
+      "entries": [
+        {
+          "title": "Caterpillar",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "dica dica",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "eRAseRmOToRpHAntOM",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Fascination MAXX",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Fire Beat",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "garden",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "Innocent Walls",
+          "difficulty": "HYPER"
+        },
+        {
+          "title": "mosaic",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "SISYPHUS",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "ワルツ第17番 ト短調”大犬のワルツ”",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "桜",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "魔法のかくれんぼ",
+          "difficulty": "ANOTHER"
+        }
+      ]
+    },
+    {
+      "name": "地力E",
+      "kind": "JIRIKI",
+      "entries": [
+        {
+          "title": "Apocalypse",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Arca",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "BIGソムタム",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Carry Me Away",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Colors (radio edit)",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Concertino in Blue",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "encounter",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "F",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "gigadelic",
+          "difficulty": "HYPER"
+        },
+        {
+          "title": "gigadelic",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Gimme a Big Beat(青龍 Remix)",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "glacia",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Hat Surprise (Season 2)",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "invoker",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "JUSTICE/GUILTY feat. Nana Takahashi & 709sec.",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "KING",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "King of Tribe",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "LASER CRUSTER",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Liberation",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "LIGHTNING STRIKES",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Lisa-RICCIA",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Little Star",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "moon_child",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "NINJA IS DEAD IIDX ver.",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "《PL|RAYER》",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Raspberry Railgun",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "RED ZONE",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "Sirius",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Summerlights(IIDX Edition)",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Symmetry",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "The Onlyonez",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Todestrieb",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "VANESSA",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Venom",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "ΕΛΠΙΣ",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "フォニイ",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "千年ノ理",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "少年A",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "灼熱 Lost Summer Dayz",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "紅牡丹",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "黒髪乱れし修羅となりて",
+          "difficulty": "ANOTHER"
+        }
+      ]
+    },
+    {
+      "name": "個人差E",
+      "kind": "KOJINSA",
+      "entries": [
+        {
+          "title": "DUE TOMORROW",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "GRID KNIGHT",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "ICARUS",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Innocent Walls",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "one or eight",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "SCREAM SQUAD",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Steel Edge",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "TROOPERS",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "雪月花",
+          "difficulty": "ANOTHER"
+        }
+      ]
+    },
+    {
+      "name": "地力F",
+      "kind": "JIRIKI",
+      "entries": [
+        {
+          "title": "A",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "CUE CUE RESCUE",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "Primitive Vibes",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Ristaccia",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "sakura storm",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "snow storm",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "SPECIAL SUMMER CAMPAIGN!",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "スパークリング☆彡ハイパーチューン！！",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "残像ニ繋ガレタ追憶ノHIDEAWAY",
+          "difficulty": "ANOTHER"
+        }
+      ]
+    },
+    {
+      "name": "難易度未定",
+      "kind": "UNRATED",
+      "entries": [
+        {
+          "title": "27th style",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "Any％",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Calvados Queen",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "Digitized Ocean",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Dolphin Kick",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Iridescent Memories",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Limelight",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "Raison d'etre～交差する宿命～",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "Smintheus",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "super double play sessions",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "TOGAKUSHI",
+          "difficulty": "LEGGENDARIA"
+        },
+        {
+          "title": "サタデーナイト☆ギャロップ",
+          "difficulty": "ANOTHER"
+        },
+        {
+          "title": "断罪のミメシス",
+          "difficulty": "ANOTHER"
+        }
+      ]
+    }
+  ]
+}

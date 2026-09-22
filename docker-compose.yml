@@ -32,7 +32,9 @@ services:
       # ソースだけをマウント (node_modules はイメージ側を使う)
       - ./apps/api/src:/app/apps/api/src
       - ./apps/api/prisma:/app/apps/api/prisma
+      - ./apps/api/scripts:/app/apps/api/scripts
       - ./packages/shared/src:/app/packages/shared/src
+      - ./data:/app/data
     depends_on:
       db:
         condition: service_healthy

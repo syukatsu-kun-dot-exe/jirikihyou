@@ -19,11 +19,13 @@ beatmania IIDX の地力表（難易度参考表）サイト。個人開発・�
 .
 ├── apps/
 │   ├── api/            Hono API
-│   │   ├── prisma/     schema.prisma / migrations / seed.ts
+│   │   ├── prisma/     schema.prisma / migrations
+│   │   ├── scripts/    import.ts (data/ → DB)
 │   │   └── src/
 │   └── web/            Vite + React
 ├── packages/
 │   └── shared/         フロント・バック共通の型と定数
+├── data/               楽曲・地力表のマスタ JSON (詳細は data/README.md)
 ├── docker-compose.yml
 └── pnpm-workspace.yaml
 ```
@@ -42,8 +44,8 @@ docker compose up --build
 | api | http://localhost:3000/health , http://localhost:3000/api/sheets |
 | db | `postgresql://jirikihyou:jirikihyou@localhost:5432/jirikihyou` |
 
-`api` コンテナは起動時に `prisma migrate deploy` → `prisma db seed` → dev サーバ起動を行います。
-シードは楽曲が 0 件のときだけ投入されます。
+`api` コンテナは起動時に `prisma migrate deploy` → `data/` の取り込み (`db:import`) → dev サーバ起動を行います。
+取り込みは冪等なので、`data/` の JSON を編集して再起動（または `pnpm db:import`）すれば DB に反映されます。
 
 ポートや DB 資格情報を変える場合は `.env.example` を `.env` にコピーして編集してください（無くても動きます）。
 
@@ -71,7 +73,11 @@ docker compose down -v     # DB データも削除
 スキーマ変更 → マイグレーション生成（コンテナ内で実行。生成物はホストの `apps/api/prisma/migrations` に出ます）:
 
 ```bash
-docker compose exec api pnpm --filter api exec prisma migrate dev --name <name>
+# 対話可能なターミナルの場合
+docker compose run --rm api pnpm --filter api exec prisma migrate dev --name <name>
+
+# 非対話環境では diff で SQL を生成し、再起動時の migrate deploy で適用
+docker compose run --rm api sh -c 'cd apps/api && d=prisma/migrations/$(date +%Y%m%d%H%M%S)_<name> && mkdir -p $d && pnpm exec prisma migrate diff --from-url "$DATABASE_URL" --to-schema-datamodel prisma/schema.prisma --script > $d/migration.sql'
 ```
 
 Prisma Studio:
@@ -99,4 +105,11 @@ Song ──< Chart ──< SheetEntry >── Tier >── Sheet
 - `Song` 楽曲、`Chart` 譜面 (SP/DP × 難易度 × レベル)
 - `Sheet` 表 (例: SP☆12 ノマゲ)、`Tier` 帯 (地力S+ など)、`SheetEntry` 表の 1 マス
 
-楽曲マスタの投入方法は今後決定。現状はサンプル数曲のみ (`apps/api/prisma/seed.ts`)。
+## データ
+
+`data/songs.json`（SP☆12 の楽曲・譜面）と `data/sheets/sp12-normal.json`（SP☆12 ノマゲ参考表）を
+`apps/api/scripts/import.ts` で取り込みます。フォーマットと出典は [data/README.md](data/README.md) を参照。
+
+```bash
+pnpm db:import   # = docker compose exec api pnpm --filter api db:import
+```

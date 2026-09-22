@@ -36,7 +36,8 @@ enum TierKind {
 
 model Song {
   id        Int      @id @default(autoincrement())
-  title     String
+  /// 楽曲タイトル。import 時の同一判定キーとして使う (IIDX 内で同名別曲はほぼ無い前提)
+  title     String   @unique
   artist    String?
   genre     String?
   /// 初出バージョン番号 (1 = 1st style ... )。不明なら null
@@ -46,8 +47,6 @@ model Song {
   charts    Chart[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-
-  @@index([title])
 }
 
 model Chart {

@@ -13,7 +13,7 @@
     "typecheck": "pnpm -r --if-present typecheck",
     "build": "pnpm -r --if-present build",
     "db:migrate": "docker compose exec api pnpm --filter api exec prisma migrate dev",
-    "db:seed": "docker compose exec api pnpm --filter api db:seed",
+    "db:import": "docker compose exec api pnpm --filter api db:import",
     "db:studio": "docker compose exec api pnpm --filter api exec prisma studio --hostname 0.0.0.0 --port 5555"
   }
 }

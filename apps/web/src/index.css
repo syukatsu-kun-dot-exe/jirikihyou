@@ -67,6 +67,28 @@ h2 {
   color: var(--ng);
 }
 
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 16px 0 8px;
+}
+
+.search {
+  flex: 1;
+  max-width: 420px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #2a3350;
+  background: var(--card);
+  color: var(--text);
+  font-size: 0.95rem;
+}
+.search:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
 .tier {
   margin-top: 24px;
 }
@@ -76,6 +98,12 @@ h2 {
   padding-left: 10px;
   border-left: 4px solid var(--accent);
   font-size: 1.05rem;
+}
+.tier-name .count {
+  margin-left: 8px;
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: var(--muted);
 }
 .tier-name.kojinsa {
   border-color: #f4a261;
@@ -102,10 +130,23 @@ h2 {
   padding: 8px 12px;
 }
 
+/* 譜面種別ごとのレベル色 (IIDX 準拠: A=赤, L=紫, H=黄, N=青) */
 .level {
   color: var(--accent);
   font-weight: 700;
   min-width: 2.4em;
+}
+.diff-another .level {
+  color: #f87171;
+}
+.diff-leggendaria .level {
+  color: #c084fc;
+}
+.diff-hyper .level {
+  color: #facc15;
+}
+.diff-normal .level {
+  color: #60a5fa;
 }
 .level small {
   margin-left: 2px;

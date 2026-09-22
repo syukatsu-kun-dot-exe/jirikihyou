@@ -17,10 +17,11 @@ RUN pnpm install --frozen-lockfile --filter api...
 
 COPY packages/shared packages/shared
 COPY apps/api apps/api
+COPY data data
 
 RUN pnpm --filter api exec prisma generate
 
 EXPOSE 3000
 
-# 起動時にマイグレーション適用 → シード → dev サーバ
-CMD ["sh", "-c", "pnpm --filter api exec prisma migrate deploy && pnpm --filter api db:seed && pnpm --filter api dev"]
+# 起動時にマイグレーション適用 → data/ の取り込み → dev サーバ
+CMD ["sh", "-c", "pnpm --filter api exec prisma migrate deploy && pnpm --filter api db:import && pnpm --filter api dev"]
