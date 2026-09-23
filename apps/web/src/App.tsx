@@ -6,7 +6,9 @@ import { api } from "./api";
 import { ChartDetailModal } from "./components/ChartDetailModal";
 import { useChartRecords } from "./hooks/useChartRecords";
 
-const lampClass = (clearType: ClearType | undefined) => `lamp-${(clearType ?? "NO_PLAY").replace(/_/g, "-").toLowerCase()}`;
+const lampSlug = (clearType: ClearType | undefined) => (clearType ?? "NO_PLAY").replace(/_/g, "-").toLowerCase();
+const lampClass = (clearType: ClearType | undefined) => `lamp-${lampSlug(clearType)}`;
+const lampTextClass = (clearType: ClearType | undefined) => `lamp-text-${lampSlug(clearType)}`;
 
 // 新しいバージョンを先頭に表示 (参考サイトと同じ並び)
 const VERSIONS_DESC = [...VERSIONS].reverse();
@@ -142,25 +144,29 @@ export function App() {
                   <p className="muted small">（なし）</p>
                 ) : (
                   <ul className="grid">
-                    {tier.entries.map((e) => (
-                      <li key={e.id}>
-                        <button
-                          type="button"
-                          className={`card diff-${e.chart.difficulty.toLowerCase()} ${lampClass(records[e.chart.id]?.clearType)}`}
-                          title={`${e.chart.song.title} / ${versionName(e.chart.song.version)}${
-                            records[e.chart.id] ? ` / ${CLEAR_TYPE_LABEL[records[e.chart.id]!.clearType]}` : ""
-                          }`}
-                          onClick={() => setSelectedEntry(e)}
-                        >
-                          <span className="level">
-                            {e.chart.level}
-                            <small>{DIFFICULTY_SHORT[e.chart.difficulty]}</small>
-                          </span>
-                          <span className="title">{e.chart.song.title}</span>
-                          <span className="version">{versionName(e.chart.song.version)}</span>
-                        </button>
-                      </li>
-                    ))}
+                    {tier.entries.map((e) => {
+                      const rec = records[e.chart.id];
+                      const clearType = rec?.clearType ?? "NO_PLAY";
+                      return (
+                        <li key={e.id}>
+                          <button
+                            type="button"
+                            className={`card diff-${e.chart.difficulty.toLowerCase()} ${lampClass(clearType)}`}
+                            title={`${e.chart.song.title} / ${versionName(e.chart.song.version)} / ${CLEAR_TYPE_LABEL[clearType]}`}
+                            onClick={() => setSelectedEntry(e)}
+                          >
+                            <span className="level">
+                              {e.chart.level}
+                              <small>{DIFFICULTY_SHORT[e.chart.difficulty]}</small>
+                            </span>
+                            <span className="title">{e.chart.song.title}</span>
+                            <span className={`play-status ${lampTextClass(clearType)}`}>
+                              {CLEAR_TYPE_LABEL[clearType]}
+                            </span>
+                          </button>
+                        </li>
+                      );
+                    })}
                   </ul>
                 )}
               </div>

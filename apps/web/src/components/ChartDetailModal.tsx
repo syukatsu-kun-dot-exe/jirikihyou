@@ -8,6 +8,7 @@ import type {
   SheetTierDto,
 } from "@jirikihyou/shared";
 import { CLEAR_TYPES, CLEAR_TYPE_LABEL, DIFFICULTY_SHORT, djLevel, maxExScore, versionName } from "@jirikihyou/shared";
+import { RecordImageInput } from "./RecordImageInput";
 
 const DIFFICULTY_LABEL: Record<SheetEntryDto["chart"]["difficulty"], string> = {
   BEGINNER: "BEGINNER",
@@ -216,6 +217,18 @@ function RecordForm({ chartId, notes, record, onSave, onRemove }: RecordFormProp
 
   return (
     <form className="record-form" onSubmit={submit}>
+      <RecordImageInput
+        notes={notes}
+        disabled={busy}
+        onApplied={(fill) => {
+          if (fill.clearType) setClearType(fill.clearType);
+          if (fill.exScore != null) setExScore(String(fill.exScore));
+          if (fill.missCount != null) setMissCount(String(fill.missCount));
+          setSavedAt(null);
+          setError(null);
+        }}
+      />
+
       <label className="field">
         <span className="field-label">クリアタイプ</span>
         <select

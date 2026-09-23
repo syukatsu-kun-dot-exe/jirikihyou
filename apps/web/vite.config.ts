@@ -7,6 +7,9 @@ const proxyTarget = process.env.VITE_PROXY_TARGET ?? "http://localhost:3000";
 
 export default defineConfig({
   plugins: [react()],
+  optimizeDeps: {
+    include: ["tesseract.js"],
+  },
   server: {
     host: "0.0.0.0",
     port: 5173,

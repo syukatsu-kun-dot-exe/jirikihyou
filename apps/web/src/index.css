@@ -250,10 +250,11 @@ h2 {
   text-overflow: ellipsis;
 }
 
-.version {
+.play-status {
   flex-shrink: 0;
   font-size: 0.7rem;
-  color: var(--muted);
+  font-weight: 600;
+  letter-spacing: 0.02em;
 }
 
 /* ---------- 詳細モーダル ---------- */
@@ -390,6 +391,64 @@ h2 {
   display: grid;
   gap: 14px;
 }
+.ocr-box {
+  display: grid;
+  gap: 6px;
+  padding: 10px 12px;
+  border: 1px dashed #2a3350;
+  border-radius: 8px;
+}
+.ocr-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.ocr-hint {
+  margin: 0;
+}
+.ocr-crop {
+  position: relative;
+  width: 100%;
+  user-select: none;
+  touch-action: none;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #000;
+}
+.ocr-crop img {
+  display: block;
+  width: 100%;
+  height: auto;
+  pointer-events: none;
+}
+.ocr-crop-shade {
+  position: absolute;
+  inset: 0;
+  cursor: crosshair;
+}
+.ocr-crop-rect {
+  position: absolute;
+  box-sizing: border-box;
+  border: 2px solid var(--accent);
+  box-shadow: 0 0 0 9999px rgba(6, 10, 20, 0.55);
+  cursor: move;
+}
+.ocr-crop.dragging .ocr-crop-rect {
+  cursor: grabbing;
+}
+.ocr-crop-handle {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  padding: 0;
+  border: 2px solid var(--accent);
+  background: #06111f;
+  border-radius: 2px;
+}
+.ocr-crop-handle.nw { left: -7px; top: -7px; cursor: nwse-resize; }
+.ocr-crop-handle.ne { right: -7px; top: -7px; cursor: nesw-resize; }
+.ocr-crop-handle.sw { left: -7px; bottom: -7px; cursor: nesw-resize; }
+.ocr-crop-handle.se { right: -7px; bottom: -7px; cursor: nwse-resize; }
 .field {
   display: grid;
   gap: 6px;
