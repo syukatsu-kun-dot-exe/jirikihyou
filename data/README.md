@@ -26,6 +26,7 @@ DB に取り込むマスタデータ。`pnpm --filter api db:import`（`apps/api
 
 - `playStyle`: `SP` | `DP`
 - `difficulty`: `BEGINNER` | `NORMAL` | `HYPER` | `ANOTHER` | `LEGGENDARIA`
+- `version`: 初出 AC バージョン番号（1 = 1st style, 11 = IIDX RED, 30 = RESIDENT, 34 = ZINRAI）。対応表は `packages/shared/src/index.ts` の `VERSIONS`
 - `artist` / `genre` / `version` / `bpm` / `notes` は任意（未入力は `null`）
 
 ### `sheets/*.json`
@@ -56,7 +57,7 @@ DB に取り込むマスタデータ。`pnpm --filter api db:import`（`apps/api
 
 ## 現在のデータ
 
-- `songs.json`: SP☆12 の楽曲のみ（643 曲 / 675 譜面）。アーティスト・バージョン等は未入力。
+- `songs.json`: SP☆12 の楽曲のみ（643 曲 / 675 譜面）。`version` は入力済み、アーティスト等は未入力。
 - `sheets/sp12-normal.json`: SP☆12 ノマゲ参考表。分類は [デラレコ](https://record.iidx.app/sheets/1) の 2026-09-23 時点の表を参照。
 
 分類は参考元の更新に追従しないため、必要に応じて手で編集してください。

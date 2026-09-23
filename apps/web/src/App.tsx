@@ -1,13 +1,17 @@
 import { useEffect, useMemo, useState } from "react";
 import type { HealthResponse, SheetDetailDto } from "@jirikihyou/shared";
-import { DIFFICULTY_SHORT } from "@jirikihyou/shared";
+import { DIFFICULTY_SHORT, VERSIONS, versionName } from "@jirikihyou/shared";
 import { api } from "./api";
+
+// 新しいバージョンを先頭に表示 (参考サイトと同じ並び)
+const VERSIONS_DESC = [...VERSIONS].reverse();
 
 export function App() {
   const [health, setHealth] = useState<HealthResponse | null>(null);
   const [sheet, setSheet] = useState<SheetDetailDto | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [query, setQuery] = useState("");
+  const [selectedVersions, setSelectedVersions] = useState<ReadonlySet<number>>(new Set());
 
   useEffect(() => {
     api.health().then(setHealth).catch((e) => setError(String(e)));
@@ -18,18 +22,45 @@ export function App() {
       .catch((e) => setError(String(e)));
   }, []);
 
+  // バージョンごとの譜面数 (ボタンに表示、0 件は無効化)
+  const countByVersion = useMemo(() => {
+    const m = new Map<number, number>();
+    for (const t of sheet?.tiers ?? []) {
+      for (const e of t.entries) {
+        const v = e.chart.song.version;
+        if (v != null) m.set(v, (m.get(v) ?? 0) + 1);
+      }
+    }
+    return m;
+  }, [sheet]);
+
   const normalizedQuery = query.trim().toLowerCase();
+  const isFiltering = normalizedQuery.length > 0 || selectedVersions.size > 0;
+
   const filteredTiers = useMemo(() => {
     if (!sheet) return [];
-    if (!normalizedQuery) return sheet.tiers;
+    if (!isFiltering) return sheet.tiers;
     return sheet.tiers.map((tier) => ({
       ...tier,
-      entries: tier.entries.filter((e) => e.chart.song.title.toLowerCase().includes(normalizedQuery)),
+      entries: tier.entries.filter((e) => {
+        const { title, version } = e.chart.song;
+        if (selectedVersions.size > 0 && (version == null || !selectedVersions.has(version))) return false;
+        if (normalizedQuery && !title.toLowerCase().includes(normalizedQuery)) return false;
+        return true;
+      }),
     }));
-  }, [sheet, normalizedQuery]);
+  }, [sheet, isFiltering, normalizedQuery, selectedVersions]);
 
   const totalEntries = sheet?.tiers.reduce((sum, t) => sum + t.entries.length, 0) ?? 0;
   const shownEntries = filteredTiers.reduce((sum, t) => sum + t.entries.length, 0);
+
+  const toggleVersion = (n: number) =>
+    setSelectedVersions((prev) => {
+      const next = new Set(prev);
+      if (next.has(n)) next.delete(n);
+      else next.add(n);
+      return next;
+    });
 
   return (
     <main className="container">
@@ -51,6 +82,31 @@ export function App() {
             {new Date(sheet.updatedAt).toLocaleString("ja-JP")}
           </p>
 
+          <div className="version-filter" role="group" aria-label="バージョンで絞り込み">
+            {VERSIONS_DESC.map((v) => {
+              const count = countByVersion.get(v.number) ?? 0;
+              const active = selectedVersions.has(v.number);
+              return (
+                <button
+                  key={v.number}
+                  type="button"
+                  className={`chip ${active ? "active" : ""}`}
+                  aria-pressed={active}
+                  disabled={count === 0}
+                  title={`${v.name} (${count} 譜面)`}
+                  onClick={() => toggleVersion(v.number)}
+                >
+                  {v.name}
+                </button>
+              );
+            })}
+            {selectedVersions.size > 0 && (
+              <button type="button" className="chip clear" onClick={() => setSelectedVersions(new Set())}>
+                選択解除 ({selectedVersions.size})
+              </button>
+            )}
+          </div>
+
           <div className="toolbar">
             <input
               type="search"
@@ -59,7 +115,7 @@ export function App() {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
             />
-            {normalizedQuery && (
+            {isFiltering && (
               <span className="muted small">
                 {shownEntries} / {totalEntries} 件
               </span>
@@ -67,7 +123,7 @@ export function App() {
           </div>
 
           {filteredTiers.map((tier) => {
-            if (normalizedQuery && tier.entries.length === 0) return null;
+            if (isFiltering && tier.entries.length === 0) return null;
             return (
               <div key={tier.id} className="tier">
                 <h3 className={`tier-name ${tier.kind.toLowerCase()}`}>
@@ -79,14 +135,17 @@ export function App() {
                 ) : (
                   <ul className="grid">
                     {tier.entries.map((e) => (
-                      <li key={e.id} className={`card diff-${e.chart.difficulty.toLowerCase()}`}>
+                      <li
+                        key={e.id}
+                        className={`card diff-${e.chart.difficulty.toLowerCase()}`}
+                        title={`${e.chart.song.title} / ${versionName(e.chart.song.version)}`}
+                      >
                         <span className="level">
                           {e.chart.level}
                           <small>{DIFFICULTY_SHORT[e.chart.difficulty]}</small>
                         </span>
-                        <span className="title" title={e.chart.song.title}>
-                          {e.chart.song.title}
-                        </span>
+                        <span className="title">{e.chart.song.title}</span>
+                        <span className="version">{versionName(e.chart.song.version)}</span>
                       </li>
                     ))}
                   </ul>
@@ -94,6 +153,8 @@ export function App() {
               </div>
             );
           })}
+
+          {isFiltering && shownEntries === 0 && <p className="muted">該当する譜面がありません。</p>}
         </section>
       ) : (
         !error && <p className="muted">読み込み中...</p>

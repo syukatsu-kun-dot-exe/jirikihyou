@@ -67,6 +67,41 @@ h2 {
   color: var(--ng);
 }
 
+.version-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 16px;
+}
+
+.chip {
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #2a3350;
+  background: var(--card);
+  color: var(--muted);
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.chip:hover:not(:disabled) {
+  background: #1f2a47;
+  color: var(--text);
+}
+.chip.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #06111f;
+  font-weight: 600;
+}
+.chip:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+.chip.clear {
+  border-style: dashed;
+}
+
 .toolbar {
   display: flex;
   align-items: center;
@@ -155,7 +190,15 @@ h2 {
 }
 
 .title {
+  flex: 1;
+  min-width: 0;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+}
+
+.version {
+  flex-shrink: 0;
+  font-size: 0.7rem;
+  color: var(--muted);
 }
