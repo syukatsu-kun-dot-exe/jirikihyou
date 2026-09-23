@@ -69,16 +69,41 @@ export const VERSIONS: readonly VersionInfo[] = [
 export const versionName = (n: number | null | undefined): string =>
   VERSIONS.find((v) => v.number === n)?.name ?? (n == null ? "不明" : `ver.${n}`);
 
-/** クリアランプ。配列順 = 強さの順 (index を DB に保存する想定) */
-export const CLEAR_TYPES = ["NO PLAY", "FAILED", "ASSIST", "EASY", "CLEAR", "HARD", "EX HARD", "FC"] as const;
+/** クリアランプ。配列順 = 弱い → 強い。値は Prisma の enum ClearType と一致 */
+export const CLEAR_TYPES = ["NO_PLAY", "FAILED", "ASSIST", "EASY", "CLEAR", "HARD", "EX_HARD", "FC"] as const;
 export type ClearType = (typeof CLEAR_TYPES)[number];
 
-/** 1 譜面に対するプレイヤーの記録 */
-export interface ChartRecord {
+/** 表示用ラベル */
+export const CLEAR_TYPE_LABEL: Record<ClearType, string> = {
+  NO_PLAY: "NO PLAY",
+  FAILED: "FAILED",
+  ASSIST: "ASSIST",
+  EASY: "EASY",
+  CLEAR: "CLEAR",
+  HARD: "HARD",
+  EX_HARD: "EX HARD",
+  FC: "FULL COMBO",
+};
+
+export const isClearType = (v: unknown): v is ClearType =>
+  typeof v === "string" && (CLEAR_TYPES as readonly string[]).includes(v);
+
+/** 記録の保存リクエスト (PUT /api/records/:chartId の body) */
+export interface ChartRecordInput {
   clearType: ClearType;
   exScore: number | null;
   missCount: number | null;
+}
+
+/** 1 譜面に対するプレイヤーの最新記録 */
+export interface ChartRecordDto extends ChartRecordInput {
+  chartId: number;
   updatedAt: string;
+}
+
+/** GET /api/records のレスポンス */
+export interface ChartRecordsResponse {
+  records: ChartRecordDto[];
 }
 
 /** EX スコアの最大値 (1 ノーツ = 2 点) */

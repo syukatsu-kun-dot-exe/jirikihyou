@@ -3,7 +3,9 @@ import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { logger } from "hono/logger";
 import type { HealthResponse } from "@jirikihyou/shared";
+import { ensureLocalUser } from "./currentUser.js";
 import { prisma } from "./db.js";
+import { records } from "./routes/records.js";
 import { sheets } from "./routes/sheets.js";
 import { songs } from "./routes/songs.js";
 
@@ -36,6 +38,7 @@ app.get("/api/health", async (c) => c.json(await health()));
 
 app.route("/api/songs", songs);
 app.route("/api/sheets", sheets);
+app.route("/api/records", records);
 
 app.notFound((c) => c.json({ error: "Not Found" }, 404));
 app.onError((err, c) => {
@@ -44,6 +47,7 @@ app.onError((err, c) => {
 });
 
 const port = Number(process.env.PORT ?? 3000);
+await ensureLocalUser();
 serve({ fetch: app.fetch, port, hostname: "0.0.0.0" }, (info) => {
   console.log(`[api] listening on http://localhost:${info.port}`);
 });

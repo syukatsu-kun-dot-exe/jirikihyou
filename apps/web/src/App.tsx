@@ -1,12 +1,12 @@
 import { useEffect, useMemo, useState } from "react";
 import type { HealthResponse, SheetDetailDto, SheetEntryDto } from "@jirikihyou/shared";
-import { DIFFICULTY_SHORT, VERSIONS, versionName } from "@jirikihyou/shared";
+import { CLEAR_TYPE_LABEL, DIFFICULTY_SHORT, VERSIONS, versionName } from "@jirikihyou/shared";
+import type { ClearType } from "@jirikihyou/shared";
 import { api } from "./api";
 import { ChartDetailModal } from "./components/ChartDetailModal";
 import { useChartRecords } from "./hooks/useChartRecords";
 
-const lampClass = (clearType: string | undefined) =>
-  `lamp-${(clearType ?? "NO PLAY").replace(/\s/g, "-").toLowerCase()}`;
+const lampClass = (clearType: ClearType | undefined) => `lamp-${(clearType ?? "NO_PLAY").replace(/_/g, "-").toLowerCase()}`;
 
 // 新しいバージョンを先頭に表示 (参考サイトと同じ並び)
 const VERSIONS_DESC = [...VERSIONS].reverse();
@@ -18,7 +18,7 @@ export function App() {
   const [query, setQuery] = useState("");
   const [selectedVersions, setSelectedVersions] = useState<ReadonlySet<number>>(new Set());
   const [selectedEntry, setSelectedEntry] = useState<SheetEntryDto | null>(null);
-  const { records, save: saveRecord, remove: removeRecord } = useChartRecords();
+  const { records, error: recordsError, save: saveRecord, remove: removeRecord } = useChartRecords();
 
   useEffect(() => {
     api.health().then(setHealth).catch((e) => setError(String(e)));
@@ -79,6 +79,7 @@ export function App() {
       </header>
 
       {error && <p className="error">{error}</p>}
+      {recordsError && <p className="error">記録の読み込みに失敗しました: {recordsError}</p>}
 
       {sheet ? (
         <section>
@@ -147,7 +148,7 @@ export function App() {
                           type="button"
                           className={`card diff-${e.chart.difficulty.toLowerCase()} ${lampClass(records[e.chart.id]?.clearType)}`}
                           title={`${e.chart.song.title} / ${versionName(e.chart.song.version)}${
-                            records[e.chart.id] ? ` / ${records[e.chart.id]!.clearType}` : ""
+                            records[e.chart.id] ? ` / ${CLEAR_TYPE_LABEL[records[e.chart.id]!.clearType]}` : ""
                           }`}
                           onClick={() => setSelectedEntry(e)}
                         >

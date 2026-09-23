@@ -95,15 +95,24 @@ docker compose exec api pnpm --filter api exec prisma studio --hostname 0.0.0.0 
 | GET | `/api/songs` | 楽曲 + 譜面一覧 |
 | GET | `/api/sheets` | 表の一覧 |
 | GET | `/api/sheets/:idOrSlug` | 表の詳細 (帯 → 譜面 → 楽曲) |
+| GET | `/api/records` | 現在ユーザーの記録一覧 |
+| PUT | `/api/records/:chartId` | 記録を作成 / 更新 (`{ clearType, exScore, missCount }`) |
+| DELETE | `/api/records/:chartId` | 記録を削除 |
+
+「現在ユーザー」はログイン機能ができるまで `id=1` のローカルユーザーに固定しています
+(`apps/api/src/currentUser.ts`)。認証を入れるときはこのミドルウェアだけ差し替えます。
 
 ## データモデル
 
 ```text
 Song ──< Chart ──< SheetEntry >── Tier >── Sheet
+            └───< ChartRecord >── User
 ```
 
 - `Song` 楽曲、`Chart` 譜面 (SP/DP × 難易度 × レベル)
 - `Sheet` 表 (例: SP☆12 ノマゲ)、`Tier` 帯 (地力S+ など)、`SheetEntry` 表の 1 マス
+- `User` プレイヤー、`ChartRecord` プレイヤー × 譜面の最新記録 (クリアタイプ / EX スコア / ミスカウント)。
+  マスタ (`Song` / `Chart`) は `data/` からの import で上書きされるため、個人の記録は別テーブルに持つ
 
 ## データ
 

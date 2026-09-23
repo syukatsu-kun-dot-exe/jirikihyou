@@ -1,6 +1,13 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
-import type { ChartRecord, ClearType, SheetDetailDto, SheetEntryDto, SheetTierDto } from "@jirikihyou/shared";
-import { CLEAR_TYPES, DIFFICULTY_SHORT, djLevel, maxExScore, versionName } from "@jirikihyou/shared";
+import type {
+  ChartRecordDto,
+  ChartRecordInput,
+  ClearType,
+  SheetDetailDto,
+  SheetEntryDto,
+  SheetTierDto,
+} from "@jirikihyou/shared";
+import { CLEAR_TYPES, CLEAR_TYPE_LABEL, DIFFICULTY_SHORT, djLevel, maxExScore, versionName } from "@jirikihyou/shared";
 
 const DIFFICULTY_LABEL: Record<SheetEntryDto["chart"]["difficulty"], string> = {
   BEGINNER: "BEGINNER",
@@ -15,9 +22,9 @@ type Tab = "record" | "detail";
 interface Props {
   sheet: SheetDetailDto;
   entry: SheetEntryDto | null;
-  record: ChartRecord | undefined;
-  onSaveRecord: (chartId: number, input: Omit<ChartRecord, "updatedAt">) => void;
-  onRemoveRecord: (chartId: number) => void;
+  record: ChartRecordDto | undefined;
+  onSaveRecord: (chartId: number, input: ChartRecordInput) => Promise<unknown>;
+  onRemoveRecord: (chartId: number) => Promise<void>;
   onClose: () => void;
   /** 同じ楽曲の別譜面へ移動 */
   onSelect: (entry: SheetEntryDto) => void;
@@ -144,9 +151,9 @@ export function ChartDetailModal({ sheet, entry, record, onSaveRecord, onRemoveR
 interface RecordFormProps {
   chartId: number;
   notes: number | null;
-  record: ChartRecord | undefined;
-  onSave: (chartId: number, input: Omit<ChartRecord, "updatedAt">) => void;
-  onRemove: (chartId: number) => void;
+  record: ChartRecordDto | undefined;
+  onSave: (chartId: number, input: ChartRecordInput) => Promise<unknown>;
+  onRemove: (chartId: number) => Promise<void>;
 }
 
 const toInt = (s: string): number | null => {
@@ -157,13 +164,15 @@ const toInt = (s: string): number | null => {
 };
 
 function RecordForm({ chartId, notes, record, onSave, onRemove }: RecordFormProps) {
-  const [clearType, setClearType] = useState<ClearType>(record?.clearType ?? "NO PLAY");
+  const [clearType, setClearType] = useState<ClearType>(record?.clearType ?? "NO_PLAY");
   const [exScore, setExScore] = useState(record?.exScore?.toString() ?? "");
   const [missCount, setMissCount] = useState(record?.missCount?.toString() ?? "");
   const [savedAt, setSavedAt] = useState<string | null>(null);
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const dirty =
-    clearType !== (record?.clearType ?? "NO PLAY") ||
+    clearType !== (record?.clearType ?? "NO_PLAY") ||
     exScore !== (record?.exScore?.toString() ?? "") ||
     missCount !== (record?.missCount?.toString() ?? "");
 
@@ -172,25 +181,51 @@ function RecordForm({ chartId, notes, record, onSave, onRemove }: RecordFormProp
   const exTooLarge = ex != null && max != null && ex > max;
   const rate = ex != null && max ? (ex / max) * 100 : null;
 
+  const run = async (action: () => Promise<unknown>, onDone: () => void) => {
+    setBusy(true);
+    setError(null);
+    try {
+      await action();
+      onDone();
+    } catch (e) {
+      setError(e instanceof Error ? e.message : String(e));
+    } finally {
+      setBusy(false);
+    }
+  };
+
   const submit = (e: FormEvent) => {
     e.preventDefault();
-    if (exTooLarge) return;
-    onSave(chartId, { clearType, exScore: ex, missCount: toInt(missCount) });
-    setSavedAt(new Date().toLocaleTimeString("ja-JP"));
+    if (exTooLarge || busy) return;
+    void run(
+      () => onSave(chartId, { clearType, exScore: ex, missCount: toInt(missCount) }),
+      () => setSavedAt(new Date().toLocaleTimeString("ja-JP")),
+    );
   };
+
+  const removeRecord = () =>
+    void run(
+      () => onRemove(chartId),
+      () => {
+        setClearType("NO_PLAY");
+        setExScore("");
+        setMissCount("");
+        setSavedAt(null);
+      },
+    );
 
   return (
     <form className="record-form" onSubmit={submit}>
       <label className="field">
         <span className="field-label">クリアタイプ</span>
         <select
-          className={`input lamp-text-${clearType.replace(/\s/g, "-").toLowerCase()}`}
+          className={`input lamp-text-${clearType.replace(/_/g, "-").toLowerCase()}`}
           value={clearType}
           onChange={(e) => setClearType(e.target.value as ClearType)}
         >
           {CLEAR_TYPES.map((t) => (
             <option key={t} value={t}>
-              {t}
+              {CLEAR_TYPE_LABEL[t]}
             </option>
           ))}
         </select>
@@ -234,35 +269,28 @@ function RecordForm({ chartId, notes, record, onSave, onRemove }: RecordFormProp
       </label>
 
       <div className="record-actions">
-        <span className="muted small">
-          {savedAt
-            ? `保存しました (${savedAt})`
-            : record
-              ? `最終更新: ${new Date(record.updatedAt).toLocaleString("ja-JP")}`
-              : "未登録"}
+        <span className={`small ${error ? "error" : "muted"}`} role={error ? "alert" : undefined}>
+          {error
+            ? `保存に失敗しました: ${error}`
+            : busy
+              ? "保存中..."
+              : savedAt
+                ? `保存しました (${savedAt})`
+                : record
+                  ? `最終更新: ${new Date(record.updatedAt).toLocaleString("ja-JP")}`
+                  : "未登録"}
         </span>
         <div className="record-buttons">
           {record && (
-            <button
-              type="button"
-              className="btn ghost"
-              onClick={() => {
-                onRemove(chartId);
-                setClearType("NO PLAY");
-                setExScore("");
-                setMissCount("");
-                setSavedAt(null);
-              }}
-            >
+            <button type="button" className="btn ghost" disabled={busy} onClick={removeRecord}>
               削除
             </button>
           )}
-          <button type="submit" className="btn primary" disabled={!dirty || exTooLarge}>
+          <button type="submit" className="btn primary" disabled={!dirty || exTooLarge || busy}>
             保存
           </button>
         </div>
       </div>
-      <p className="muted small note">記録はこのブラウザ内 (localStorage) に保存されます。</p>
     </form>
   );
 }

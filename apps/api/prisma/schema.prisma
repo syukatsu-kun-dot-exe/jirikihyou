@@ -5,6 +5,9 @@
 // Sheet : 表 (例: SP☆12 ノマゲ参考表)
 // Tier  : 表の中の帯 (例: 地力S+, 個人差A)
 // SheetEntry : 表の1マス (どの譜面がどの帯にいるか)
+//
+// User        : プレイヤー。ログイン機能ができるまでは id=1 のローカルユーザーのみ
+// ChartRecord : プレイヤー × 譜面 の最新記録 (クリアタイプ / EX スコア / ミスカウント)
 
 generator client {
   provider = "prisma-client-js"
@@ -34,6 +37,18 @@ enum TierKind {
   UNRATED // 難易度未定
 }
 
+/// クリアランプ。弱い順に並べている
+enum ClearType {
+  NO_PLAY
+  FAILED
+  ASSIST
+  EASY
+  CLEAR
+  HARD
+  EX_HARD
+  FC
+}
+
 model Song {
   id        Int      @id @default(autoincrement())
   /// 楽曲タイトル。import 時の同一判定キーとして使う (IIDX 内で同名別曲はほぼ無い前提)
@@ -58,6 +73,7 @@ model Chart {
   level        Int
   notes        Int?
   sheetEntries SheetEntry[]
+  records      ChartRecord[]
   createdAt    DateTime     @default(now())
   updatedAt    DateTime     @updatedAt
 
@@ -105,4 +121,32 @@ model SheetEntry {
   updatedAt DateTime @updatedAt
 
   @@unique([sheetId, chartId])
+}
+
+model User {
+  id          Int           @id @default(autoincrement())
+  displayName String
+  // ログイン導入時に provider / providerId / email などを追加する
+  records     ChartRecord[]
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+}
+
+model ChartRecord {
+  id        Int       @id @default(autoincrement())
+  userId    Int
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  chartId   Int
+  chart     Chart     @relation(fields: [chartId], references: [id], onDelete: Cascade)
+  clearType ClearType @default(NO_PLAY)
+  exScore   Int?
+  missCount Int?
+  /// 最終プレー日時 (任意)
+  playedAt  DateTime?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  /// 1 ユーザー 1 譜面につき最新記録は 1 行
+  @@unique([userId, chartId])
+  @@index([userId])
 }

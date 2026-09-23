@@ -464,10 +464,6 @@ select.input option {
   color: var(--ng);
   border-color: var(--ng);
 }
-.record-form .note {
-  margin: 0;
-}
-
 .entry-note {
   margin: 16px 0 0;
   padding: 10px 12px;
