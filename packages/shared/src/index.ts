@@ -69,6 +69,39 @@ export const VERSIONS: readonly VersionInfo[] = [
 export const versionName = (n: number | null | undefined): string =>
   VERSIONS.find((v) => v.number === n)?.name ?? (n == null ? "不明" : `ver.${n}`);
 
+/** クリアランプ。配列順 = 強さの順 (index を DB に保存する想定) */
+export const CLEAR_TYPES = ["NO PLAY", "FAILED", "ASSIST", "EASY", "CLEAR", "HARD", "EX HARD", "FC"] as const;
+export type ClearType = (typeof CLEAR_TYPES)[number];
+
+/** 1 譜面に対するプレイヤーの記録 */
+export interface ChartRecord {
+  clearType: ClearType;
+  exScore: number | null;
+  missCount: number | null;
+  updatedAt: string;
+}
+
+/** EX スコアの最大値 (1 ノーツ = 2 点) */
+export const maxExScore = (notes: number) => notes * 2;
+
+export const DJ_LEVELS = ["F", "E", "D", "C", "B", "A", "AA", "AAA"] as const;
+export type DjLevel = (typeof DJ_LEVELS)[number];
+
+/** EX スコアと最大値から DJ LEVEL を求める (AAA = 8/9 以上, AA = 7/9 以上, ...) */
+export function djLevel(exScore: number, notes: number): DjLevel {
+  const max = maxExScore(notes);
+  if (max <= 0) return "F";
+  const ninths = Math.floor((exScore * 9) / max);
+  if (ninths >= 8) return "AAA";
+  if (ninths >= 7) return "AA";
+  if (ninths >= 6) return "A";
+  if (ninths >= 5) return "B";
+  if (ninths >= 4) return "C";
+  if (ninths >= 3) return "D";
+  if (ninths >= 2) return "E";
+  return "F";
+}
+
 export interface HealthResponse {
   status: "ok" | "degraded";
   db: "ok" | "error";

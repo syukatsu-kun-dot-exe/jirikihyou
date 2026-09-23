@@ -3,6 +3,10 @@ import type { HealthResponse, SheetDetailDto, SheetEntryDto } from "@jirikihyou/
 import { DIFFICULTY_SHORT, VERSIONS, versionName } from "@jirikihyou/shared";
 import { api } from "./api";
 import { ChartDetailModal } from "./components/ChartDetailModal";
+import { useChartRecords } from "./hooks/useChartRecords";
+
+const lampClass = (clearType: string | undefined) =>
+  `lamp-${(clearType ?? "NO PLAY").replace(/\s/g, "-").toLowerCase()}`;
 
 // 新しいバージョンを先頭に表示 (参考サイトと同じ並び)
 const VERSIONS_DESC = [...VERSIONS].reverse();
@@ -14,6 +18,7 @@ export function App() {
   const [query, setQuery] = useState("");
   const [selectedVersions, setSelectedVersions] = useState<ReadonlySet<number>>(new Set());
   const [selectedEntry, setSelectedEntry] = useState<SheetEntryDto | null>(null);
+  const { records, save: saveRecord, remove: removeRecord } = useChartRecords();
 
   useEffect(() => {
     api.health().then(setHealth).catch((e) => setError(String(e)));
@@ -140,8 +145,10 @@ export function App() {
                       <li key={e.id}>
                         <button
                           type="button"
-                          className={`card diff-${e.chart.difficulty.toLowerCase()}`}
-                          title={`${e.chart.song.title} / ${versionName(e.chart.song.version)}`}
+                          className={`card diff-${e.chart.difficulty.toLowerCase()} ${lampClass(records[e.chart.id]?.clearType)}`}
+                          title={`${e.chart.song.title} / ${versionName(e.chart.song.version)}${
+                            records[e.chart.id] ? ` / ${records[e.chart.id]!.clearType}` : ""
+                          }`}
                           onClick={() => setSelectedEntry(e)}
                         >
                           <span className="level">
@@ -164,6 +171,9 @@ export function App() {
           <ChartDetailModal
             sheet={sheet}
             entry={selectedEntry}
+            record={selectedEntry ? records[selectedEntry.chart.id] : undefined}
+            onSaveRecord={saveRecord}
+            onRemoveRecord={removeRecord}
             onClose={() => setSelectedEntry(null)}
             onSelect={setSelectedEntry}
           />

@@ -179,6 +179,45 @@ h2 {
   border-color: var(--accent);
 }
 
+/* クリアランプ (カード左端の帯)。色は IIDX / 参考サイトに準拠 */
+.card {
+  border-left: 4px solid var(--lamp, #334155);
+}
+.lamp-no-play {
+  --lamp: #334155;
+}
+.lamp-failed {
+  --lamp: #dc2626;
+}
+.lamp-assist {
+  --lamp: #a855f7;
+}
+.lamp-easy {
+  --lamp: #4ade80;
+}
+.lamp-clear {
+  --lamp: #06b6d4;
+}
+.lamp-hard {
+  --lamp: #f1f5f9;
+}
+.lamp-ex-hard {
+  --lamp: #f97316;
+}
+.lamp-fc {
+  --lamp: #bae6fd;
+  box-shadow: inset 0 0 0 1px rgba(186, 230, 253, 0.35);
+}
+
+.lamp-text-no-play { color: var(--muted); }
+.lamp-text-failed { color: #f87171; }
+.lamp-text-assist { color: #c084fc; }
+.lamp-text-easy { color: #86efac; }
+.lamp-text-clear { color: #22d3ee; }
+.lamp-text-hard { color: #fca5a5; }
+.lamp-text-ex-hard { color: #facc15; }
+.lamp-text-fc { color: #7dd3fc; }
+
 /* 譜面種別ごとのレベル色 (IIDX 準拠: A=赤, L=紫, H=黄, N=青) */
 .level {
   color: var(--accent);
@@ -310,19 +349,123 @@ h2 {
 }
 
 .siblings {
-  margin-top: 16px;
-}
-.siblings h3 {
-  margin: 0 0 8px;
-  font-weight: 500;
-}
-.siblings ul {
   list-style: none;
-  margin: 0;
+  margin: -8px 0 12px;
   padding: 0;
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
+}
+
+/* タブ */
+.tabs {
+  display: flex;
+  border-bottom: 1px solid #2a3350;
+  margin-bottom: 16px;
+}
+.tab {
+  flex: 1;
+  padding: 10px 12px;
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+}
+.tab:hover {
+  color: var(--text);
+}
+.tab.active {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+/* 記録フォーム */
+.record-form {
+  display: grid;
+  gap: 14px;
+}
+.field {
+  display: grid;
+  gap: 6px;
+}
+.field-label {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+.field-hint {
+  font-size: 0.8rem;
+  min-height: 1.2em;
+}
+.input {
+  width: 100%;
+  padding: 9px 12px;
+  border-radius: 6px;
+  border: 1px solid #2a3350;
+  background: var(--card);
+  color: var(--text);
+  font: inherit;
+  font-size: 0.95rem;
+}
+.input:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+.input[aria-invalid="true"] {
+  border-color: var(--ng);
+}
+select.input {
+  font-weight: 600;
+}
+select.input option {
+  color: var(--text);
+  background: var(--bg);
+}
+
+.record-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 4px;
+}
+.record-buttons {
+  display: flex;
+  gap: 8px;
+}
+.btn {
+  padding: 8px 16px;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.btn.primary {
+  background: var(--accent);
+  color: #06111f;
+}
+.btn.primary:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.btn.ghost {
+  background: transparent;
+  border-color: #2a3350;
+  color: var(--muted);
+}
+.btn.ghost:hover {
+  color: var(--ng);
+  border-color: var(--ng);
+}
+.record-form .note {
+  margin: 0;
 }
 
 .entry-note {
