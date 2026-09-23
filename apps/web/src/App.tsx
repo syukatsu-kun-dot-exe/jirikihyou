@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
-import type { HealthResponse, SheetDetailDto } from "@jirikihyou/shared";
+import type { HealthResponse, SheetDetailDto, SheetEntryDto } from "@jirikihyou/shared";
 import { DIFFICULTY_SHORT, VERSIONS, versionName } from "@jirikihyou/shared";
 import { api } from "./api";
+import { ChartDetailModal } from "./components/ChartDetailModal";
 
 // 新しいバージョンを先頭に表示 (参考サイトと同じ並び)
 const VERSIONS_DESC = [...VERSIONS].reverse();
@@ -12,6 +13,7 @@ export function App() {
   const [error, setError] = useState<string | null>(null);
   const [query, setQuery] = useState("");
   const [selectedVersions, setSelectedVersions] = useState<ReadonlySet<number>>(new Set());
+  const [selectedEntry, setSelectedEntry] = useState<SheetEntryDto | null>(null);
 
   useEffect(() => {
     api.health().then(setHealth).catch((e) => setError(String(e)));
@@ -135,26 +137,20 @@ export function App() {
                 ) : (
                   <ul className="grid">
                     {tier.entries.map((e) => (
-                      <li
-                        key={e.id}
-                        className={`card diff-${e.chart.difficulty.toLowerCase()}`}
-                        title={[
-                          e.chart.song.title,
-                          e.chart.song.artist,
-                          e.chart.song.genre,
-                          versionName(e.chart.song.version),
-                          e.chart.song.bpm && `BPM ${e.chart.song.bpm}`,
-                          e.chart.notes != null && `${e.chart.notes} notes`,
-                        ]
-                          .filter(Boolean)
-                          .join(" / ")}
-                      >
-                        <span className="level">
-                          {e.chart.level}
-                          <small>{DIFFICULTY_SHORT[e.chart.difficulty]}</small>
-                        </span>
-                        <span className="title">{e.chart.song.title}</span>
-                        <span className="version">{versionName(e.chart.song.version)}</span>
+                      <li key={e.id}>
+                        <button
+                          type="button"
+                          className={`card diff-${e.chart.difficulty.toLowerCase()}`}
+                          title={`${e.chart.song.title} / ${versionName(e.chart.song.version)}`}
+                          onClick={() => setSelectedEntry(e)}
+                        >
+                          <span className="level">
+                            {e.chart.level}
+                            <small>{DIFFICULTY_SHORT[e.chart.difficulty]}</small>
+                          </span>
+                          <span className="title">{e.chart.song.title}</span>
+                          <span className="version">{versionName(e.chart.song.version)}</span>
+                        </button>
                       </li>
                     ))}
                   </ul>
@@ -164,6 +160,13 @@ export function App() {
           })}
 
           {isFiltering && shownEntries === 0 && <p className="muted">該当する譜面がありません。</p>}
+
+          <ChartDetailModal
+            sheet={sheet}
+            entry={selectedEntry}
+            onClose={() => setSelectedEntry(null)}
+            onSelect={setSelectedEntry}
+          />
         </section>
       ) : (
         !error && <p className="muted">読み込み中...</p>
