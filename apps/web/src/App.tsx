@@ -138,7 +138,16 @@ export function App() {
                       <li
                         key={e.id}
                         className={`card diff-${e.chart.difficulty.toLowerCase()}`}
-                        title={`${e.chart.song.title} / ${versionName(e.chart.song.version)}`}
+                        title={[
+                          e.chart.song.title,
+                          e.chart.song.artist,
+                          e.chart.song.genre,
+                          versionName(e.chart.song.version),
+                          e.chart.song.bpm && `BPM ${e.chart.song.bpm}`,
+                          e.chart.notes != null && `${e.chart.notes} notes`,
+                        ]
+                          .filter(Boolean)
+                          .join(" / ")}
                       >
                         <span className="level">
                           {e.chart.level}

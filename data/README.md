@@ -57,7 +57,10 @@ DB に取り込むマスタデータ。`pnpm --filter api db:import`（`apps/api
 
 ## 現在のデータ
 
-- `songs.json`: SP☆12 の楽曲のみ（643 曲 / 675 譜面）。`version` は入力済み、アーティスト等は未入力。
+- `songs.json`: SP☆12 の楽曲のみ（643 曲 / 675 譜面）。
+  - `version` / `artist` / `genre`: [デラレコ](https://record.iidx.app/) の公開 API（2026-09-24 時点）
+  - `bpm` / `notes`: [TexTage](https://textage.cc/) の `datatbl.js`（2026-09-24 時点）。曲名の表記ゆれ（`Ø`→`O`/`0`、`И`→`N`、`Æ`→`A`/`ae` など）は正規化して照合
+  - 未取得: `POLKAMANIA` / `X-DEN` / `火影` の `bpm` と `notes`（TexTage に未収録のため）
 - `sheets/sp12-normal.json`: SP☆12 ノマゲ参考表。分類は [デラレコ](https://record.iidx.app/sheets/1) の 2026-09-23 時点の表を参照。
 
 分類は参考元の更新に追従しないため、必要に応じて手で編集してください。
