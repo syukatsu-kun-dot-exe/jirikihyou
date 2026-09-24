@@ -12,12 +12,25 @@ export type CurrentUserEnv = {
   Variables: { userId: number };
 };
 
+/**
+ * リクエストに `userId` を載せる。現状は {@link LOCAL_USER_ID} 固定。
+ * ログイン導入時はセッション / JWT から解決するように差し替える。
+ *
+ * @param c - Hono Context。`c.get("userId")` で後段が読む
+ * @param next - 後続ハンドラ
+ */
 export const currentUser = createMiddleware<CurrentUserEnv>(async (c, next) => {
   c.set("userId", LOCAL_USER_ID);
   await next();
 });
 
-/** 起動時にローカルユーザーが存在することを保証する */
+/**
+ * 起動時に id=1 のローカルユーザーが無い場合だけ作成する (upsert)。
+ * import スクリプトは User に触れないので、API 起動側で保証する。
+ *
+ * @returns なし。DB 未接続なら例外
+ * @throws Prisma の接続 / 書き込みエラー
+ */
 export async function ensureLocalUser() {
   await prisma.user.upsert({
     where: { id: LOCAL_USER_ID },

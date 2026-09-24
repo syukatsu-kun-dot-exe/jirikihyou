@@ -66,6 +66,12 @@ export const VERSIONS: readonly VersionInfo[] = [
   { number: 34, name: "ZINRAI" },
 ];
 
+/**
+ * `Song.version` を表示名に変換する。
+ *
+ * @param n - バージョン番号 (1 = 1st style)。未設定なら null/undefined
+ * @returns 対応表の名称。未設定は「不明」、未知の番号は `ver.{n}`
+ */
 export const versionName = (n: number | null | undefined): string =>
   VERSIONS.find((v) => v.number === n)?.name ?? (n == null ? "不明" : `ver.${n}`);
 
@@ -85,13 +91,22 @@ export const CLEAR_TYPE_LABEL: Record<ClearType, string> = {
   FC: "FULL COMBO",
 };
 
+/**
+ * 値が {@link CLEAR_TYPES} のいずれかであるかを判定する (API 入力の検証用)。
+ *
+ * @param v - 未検証の値
+ * @returns `v` が ClearType なら true
+ */
 export const isClearType = (v: unknown): v is ClearType =>
   typeof v === "string" && (CLEAR_TYPES as readonly string[]).includes(v);
 
 /** 記録の保存リクエスト (PUT /api/records/:chartId の body) */
 export interface ChartRecordInput {
+  /** クリアランプ。NO_PLAY も保存可 */
   clearType: ClearType;
+  /** EX スコア。未入力は null。サーバは notes*2 超を 400 */
   exScore: number | null;
+  /** ミスカウント (BP)。未入力は null */
   missCount: number | null;
 }
 
@@ -106,13 +121,25 @@ export interface ChartRecordsResponse {
   records: ChartRecordDto[];
 }
 
-/** EX スコアの最大値 (1 ノーツ = 2 点) */
+/**
+ * 理論上の最大 EX スコア。IIDX は 1 ノーツ = 2 点 (PGREAT)。
+ *
+ * @param notes - 譜面のノーツ数
+ * @returns `notes * 2`
+ */
 export const maxExScore = (notes: number) => notes * 2;
 
 export const DJ_LEVELS = ["F", "E", "D", "C", "B", "A", "AA", "AAA"] as const;
 export type DjLevel = (typeof DJ_LEVELS)[number];
 
-/** EX スコアと最大値から DJ LEVEL を求める (AAA = 8/9 以上, AA = 7/9 以上, ...) */
+/**
+ * EX スコアとノーツ数から DJ LEVEL を求める。
+ * 公式と同じく理論値を 9 等分し、`floor(ex * 9 / max)` が 8 以上なら AAA、7 なら AA、…。
+ *
+ * @param exScore - 取得 EX スコア (0 以上)
+ * @param notes - 譜面のノーツ数。0 以下なら F
+ * @returns F〜AAA
+ */
 export function djLevel(exScore: number, notes: number): DjLevel {
   const max = maxExScore(notes);
   if (max <= 0) return "F";

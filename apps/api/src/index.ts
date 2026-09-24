@@ -19,6 +19,11 @@ app.use(
   }),
 );
 
+/**
+ * 稼働確認。DB に `SELECT 1` を投げ、繋がらなければ degraded。
+ *
+ * @returns status / db / ISO 時刻
+ */
 const health = async (): Promise<HealthResponse> => {
   let db: HealthResponse["db"] = "ok";
   try {
@@ -40,7 +45,9 @@ app.route("/api/songs", songs);
 app.route("/api/sheets", sheets);
 app.route("/api/records", records);
 
+/** 未定義パスは JSON 404。HTML を返さない */
 app.notFound((c) => c.json({ error: "Not Found" }, 404));
+/** 未捕捉例外は 500。詳細はログのみ (クライアントへは出さない) */
 app.onError((err, c) => {
   console.error(err);
   return c.json({ error: "Internal Server Error" }, 500);

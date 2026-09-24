@@ -2,8 +2,15 @@ import { Hono } from "hono";
 import type { SongDto } from "@jirikihyou/shared";
 import { prisma } from "../db.js";
 
+/** 楽曲マスタ API。`GET /api/songs` */
 export const songs = new Hono();
 
+/**
+ * GET /api/songs
+ * 全楽曲と配下の譜面。タイトル昇順。
+ *
+ * @returns SongDto[]
+ */
 songs.get("/", async (c) => {
   const rows = await prisma.song.findMany({
     include: { charts: true },

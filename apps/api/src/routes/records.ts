@@ -4,11 +4,19 @@ import { isClearType, maxExScore } from "@jirikihyou/shared";
 import { prisma } from "../db.js";
 import { currentUser, type CurrentUserEnv } from "../currentUser.js";
 
+/** 個人記録 API。全ルートで {@link currentUser} を通し userId をセットする */
 export const records = new Hono<CurrentUserEnv>();
 records.use("*", currentUser);
 
+/** Prisma の ChartRecord 行のうち DTO に必要な列 */
 type Row = { chartId: number; clearType: ChartRecordDto["clearType"]; exScore: number | null; missCount: number | null; updatedAt: Date };
 
+/**
+ * DB 行を API レスポンス形にする。`updatedAt` は ISO 8601 文字列。
+ *
+ * @param r - 記録行
+ * @returns フロントが使う ChartRecordDto
+ */
 const toDto = (r: Row): ChartRecordDto => ({
   chartId: r.chartId,
   clearType: r.clearType,
@@ -17,7 +25,12 @@ const toDto = (r: Row): ChartRecordDto => ({
   updatedAt: r.updatedAt.toISOString(),
 });
 
-/** 現在ユーザーの全記録 */
+/**
+ * GET /api/records
+ * 現在ユーザー (現状 id=1) の最新記録一覧。
+ *
+ * @returns `{ records: ChartRecordDto[] }`
+ */
 records.get("/", async (c) => {
   const rows = await prisma.chartRecord.findMany({
     where: { userId: c.get("userId") },
@@ -27,7 +40,13 @@ records.get("/", async (c) => {
   return c.json(body);
 });
 
-/** null / 0 以上の整数 のみ許可 */
+/**
+ * JSON の数値フィールドを検証する。空 / null は「未入力」。
+ *
+ * @param v - body の値
+ * @param name - エラーメッセージに出す項目名
+ * @returns 成功時は整数または null、失敗時は日本語エラー
+ */
 const parseNonNegativeInt = (v: unknown, name: string): { ok: true; value: number | null } | { ok: false; error: string } => {
   if (v == null || v === "") return { ok: true, value: null };
   if (typeof v !== "number" || !Number.isInteger(v) || v < 0) {
@@ -36,7 +55,15 @@ const parseNonNegativeInt = (v: unknown, name: string): { ok: true; value: numbe
   return { ok: true, value: v };
 };
 
-/** 記録を作成 / 更新 (upsert) */
+/**
+ * PUT /api/records/:chartId
+ * 1 譜面の記録を upsert。`@@unique([userId, chartId])`。
+ *
+ * @param chartId - パス。整数であること
+ * @body clearType / exScore / missCount
+ * @returns 保存後の ChartRecordDto
+ * @throws 400 不正な body、404 譜面なし。exScore が notes*2 超も 400
+ */
 records.put("/:chartId", async (c) => {
   const chartId = Number(c.req.param("chartId"));
   if (!Number.isInteger(chartId)) return c.json({ error: "chartId が不正です" }, 400);
@@ -69,7 +96,13 @@ records.put("/:chartId", async (c) => {
   return c.json(toDto(row));
 });
 
-/** 記録を削除 */
+/**
+ * DELETE /api/records/:chartId
+ * 該当ユーザーのその譜面の記録を消す。無くても 204。
+ *
+ * @param chartId - パス
+ * @returns 空 body、HTTP 204
+ */
 records.delete("/:chartId", async (c) => {
   const chartId = Number(c.req.param("chartId"));
   if (!Number.isInteger(chartId)) return c.json({ error: "chartId が不正です" }, 400);

@@ -6,13 +6,34 @@ import { api } from "./api";
 import { ChartDetailModal } from "./components/ChartDetailModal";
 import { useChartRecords } from "./hooks/useChartRecords";
 
+/**
+ * クリアタイプを CSS 用スラッグにする。`EX_HARD` → `ex-hard`。未プレイは `no-play`。
+ *
+ * @param clearType - 記録のランプ。未登録なら NO_PLAY
+ */
 const lampSlug = (clearType: ClearType | undefined) => (clearType ?? "NO_PLAY").replace(/_/g, "-").toLowerCase();
+
+/**
+ * カード背景色用クラス。`index.css` の `.lamp-*` と対応。
+ *
+ * @param clearType - 記録のランプ
+ */
 const lampClass = (clearType: ClearType | undefined) => `lamp-${lampSlug(clearType)}`;
+
+/**
+ * プレイ状況テキスト色用クラス。`.lamp-text-*`。
+ *
+ * @param clearType - 記録のランプ
+ */
 const lampTextClass = (clearType: ClearType | undefined) => `lamp-text-${lampSlug(clearType)}`;
 
 // 新しいバージョンを先頭に表示 (参考サイトと同じ並び)
 const VERSIONS_DESC = [...VERSIONS].reverse();
 
+/**
+ * 地力表のトップ。最初のシートを表示し、バージョン・タイトルで絞り込み、
+ * カードクリックで記録モーダルを開く。
+ */
 export function App() {
   const [health, setHealth] = useState<HealthResponse | null>(null);
   const [sheet, setSheet] = useState<SheetDetailDto | null>(null);
@@ -63,6 +84,11 @@ export function App() {
   const totalEntries = sheet?.tiers.reduce((sum, t) => sum + t.entries.length, 0) ?? 0;
   const shownEntries = filteredTiers.reduce((sum, t) => sum + t.entries.length, 0);
 
+  /**
+   * バージョンチップの複数選択を切り替える。同じ番号をもう一度押すと外す。
+   *
+   * @param n - {@link VERSIONS} の number (1 = 1st style)
+   */
   const toggleVersion = (n: number) =>
     setSelectedVersions((prev) => {
       const next = new Set(prev);

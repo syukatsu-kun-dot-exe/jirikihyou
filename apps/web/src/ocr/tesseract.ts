@@ -24,6 +24,12 @@ export interface OcrPage {
   words: OcrWord[];
 }
 
+/**
+ * 英語 tessdata の worker を作る。パスは CDN 固定 (npm 同梱 wasm を Vite が解決できないため)。
+ *
+ * @returns 初期化済み Worker
+ * @throws 学習データ取得失敗時
+ */
 async function createOcrWorker(): Promise<Worker> {
   return createWorker("eng", 1, {
     workerPath: "https://cdn.jsdelivr.net/npm/tesseract.js@5.1.1/dist/worker.min.js",
@@ -32,6 +38,11 @@ async function createOcrWorker(): Promise<Worker> {
   });
 }
 
+/**
+ * プロセス内で共有する Tesseract worker。失敗したら promise を捨てて再試行できるようにする。
+ *
+ * @returns シングルトン Worker
+ */
 export async function getOcrWorker(): Promise<Worker> {
   if (!workerPromise) {
     workerPromise = createOcrWorker().catch((err) => {
@@ -42,12 +53,26 @@ export async function getOcrWorker(): Promise<Worker> {
   return workerPromise;
 }
 
+/**
+ * tesseract.js の単語オブジェクトから必要な列だけ残す。
+ *
+ * @param w - recognize 結果の 1 単語
+ */
 const toWord = (w: { text: string; confidence: number; bbox: OcrWord["bbox"] }): OcrWord => ({
   text: w.text,
   confidence: w.confidence,
   bbox: { x0: w.bbox.x0, y0: w.bbox.y0, x1: w.bbox.x1, y1: w.bbox.y1 },
 });
 
+/**
+ * キャンバスを OCR し、全文・行・単語 (bbox 付き) を返す。
+ * whitelist は筐体 HUD の英数字と記号に限定する (日本語 tessdata は未使用)。
+ *
+ * @param image - 認識対象。呼び出し側で切り出し・拡大済みであること
+ * @param opts.digitsOnly - true なら数字のみ。PSM も SINGLE_BLOCK にする
+ * @param opts.psm - ページ分割モード。未指定時は digitsOnly に応じて決める
+ * @returns テキストとレイアウト
+ */
 export async function recognizePage(
   image: HTMLCanvasElement,
   opts: { digitsOnly?: boolean; psm?: PSM } = {},
@@ -70,6 +95,13 @@ export async function recognizePage(
   return { text: data.text ?? "", lines, words };
 }
 
+/**
+ * {@link recognizePage} のテキストだけを返す薄いラッパ。
+ *
+ * @param image - 認識対象
+ * @param opts.digitsOnly - 数字のみにするか
+ * @returns 認識テキスト
+ */
 export async function recognizeText(
   image: HTMLCanvasElement,
   opts: { digitsOnly?: boolean } = {},

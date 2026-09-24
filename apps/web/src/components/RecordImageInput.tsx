@@ -15,6 +15,12 @@ interface Props {
   onApplied: (fill: OcrFill) => void;
 }
 
+/**
+ * OCR 結果をユーザー向け 1 行にする。
+ *
+ * @param fill - フォームへ流し込む値
+ * @returns 例: `HARD / EX 3894 / BP 1`
+ */
 function summarize(fill: OcrFill): string {
   const parts: string[] = [];
   if (fill.clearType) parts.push(CLEAR_TYPE_LABEL[fill.clearType]);
@@ -23,6 +29,14 @@ function summarize(fill: OcrFill): string {
   return parts.join(" / ");
 }
 
+/**
+ * 記録タブの画像入力。ファイル選択または Ctrl+V → 枠指定 → 「この枠で読み取る」。
+ * 読み取り結果は onApplied するだけで PUT しない (確認してから保存)。
+ *
+ * @param props.notes - 譜面ノーツ数。EX 上限の手がかり
+ * @param props.disabled - 保存中など
+ * @param props.onApplied - OCR で埋めるフィールド
+ */
 export function RecordImageInput({ notes, disabled, onApplied }: Props) {
   const inputRef = useRef<HTMLInputElement>(null);
   const notesRef = useRef(notes);
@@ -37,6 +51,11 @@ export function RecordImageInput({ notes, disabled, onApplied }: Props) {
   const [message, setMessage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
+  /**
+   * 新しい画像を受け取り、プレビュー URL を差し替える。枠は初期値に戻す。
+   *
+   * @param next - 選択またはペーストされた画像
+   */
   const acceptFile = (next: File) => {
     if (disabled || reading) return;
     setFile(next);
@@ -49,6 +68,10 @@ export function RecordImageInput({ notes, disabled, onApplied }: Props) {
     });
   };
 
+  /**
+   * 現在の枠で {@link readIidxResult} を実行し、読めた項目だけ親へ渡す。
+   * 何も読めなければエラー表示。自動保存はしない。
+   */
   const readCrop = async () => {
     if (!file || disabled || reading) return;
     setReading(true);

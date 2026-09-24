@@ -14,6 +14,7 @@ import { DIFFICULTIES, PLAY_STYLES, TIER_KINDS } from "@jirikihyou/shared";
 
 const prisma = new PrismaClient();
 
+/** マスタ JSON のルート。Docker では `/data` を DATA_DIR で渡す */
 const DATA_DIR = process.env.DATA_DIR ?? path.resolve(import.meta.dirname, "../../../data");
 
 // ---------- JSON の型 ----------
@@ -59,17 +60,42 @@ interface SheetJson {
 
 // ---------- 読み込み & 検証 ----------
 
+/**
+ * UTF-8 の JSON ファイルを読む。BOM 無し前提。
+ *
+ * @param file - 絶対パス
+ * @returns パース結果。型は呼び出し側の責任
+ * @throws ファイル無し / JSON 不正
+ */
 function readJson<T>(file: string): T {
   return JSON.parse(fs.readFileSync(file, "utf8")) as T;
 }
 
+/**
+ * 条件が偽なら即失敗させる。import は途中成功を残さない方針。
+ *
+ * @param cond - 成立していてほしい条件
+ * @param msg - 失敗時のメッセージ
+ */
 function assert(cond: unknown, msg: string): asserts cond {
   if (!cond) throw new Error(msg);
 }
 
+/**
+ * 列挙定数に含まれる文字列か。
+ *
+ * @param arr - 許可リスト
+ * @param v - 未検証値
+ * @returns 型ガード。true なら `v` は arr の要素
+ */
 const isIn = <T extends readonly string[]>(arr: T, v: unknown): v is T[number] =>
   typeof v === "string" && (arr as readonly string[]).includes(v);
 
+/**
+ * songs.json の最低限の形を検証する。タイトル重複は import キーと衝突するため禁止。
+ *
+ * @param songs - 読み込んだ配列
+ */
 function validateSongs(songs: SongJson[]) {
   const seen = new Set<string>();
   for (const s of songs) {
@@ -85,6 +111,12 @@ function validateSongs(songs: SongJson[]) {
   }
 }
 
+/**
+ * 地力表 JSON の slug / 帯名重複 / 同一譜面の二重掲載を検証する。
+ *
+ * @param sheet - 1 ファイル分
+ * @param file - エラーメッセージ用のファイル名
+ */
 function validateSheet(sheet: SheetJson, file: string) {
   assert(typeof sheet.slug === "string" && /^[a-z0-9-]+$/.test(sheet.slug), `${file}: invalid slug`);
   assert(isIn(PLAY_STYLES, sheet.playStyle), `${file}: invalid playStyle`);
@@ -105,16 +137,35 @@ function validateSheet(sheet: SheetJson, file: string) {
 
 // ---------- 取り込み ----------
 
+/**
+ * 譜面の突き合わせキー。シート JSON と songs.json の対応に使う。
+ *
+ * @param playStyle - SP / DP
+ * @param difficulty - 譜面難易度
+ * @param title - 楽曲タイトル (Song.title と一致)
+ */
 const chartKey = (playStyle: PlayStyle, difficulty: Difficulty, title: string) =>
   `${playStyle}|${difficulty}|${title}`;
 
-/** 大量の upsert を 1 トランザクションにまとめて往復回数を減らす */
+/**
+ * 大量の upsert を分割トランザクションにする。1 本にするとタイムアウトしやすい。
+ *
+ * @param ops - Prisma Promise の列
+ * @param size - 1 トランザクションあたりの件数。デフォルト 200
+ */
 async function runBatched<T>(ops: Prisma.PrismaPromise<T>[], size = 200) {
   for (let i = 0; i < ops.length; i += size) {
     await prisma.$transaction(ops.slice(i, i + size));
   }
 }
 
+/**
+ * 楽曲と譜面を upsert し、チャートキー → Chart.id の対応表を返す。
+ * User / ChartRecord には触れない (個人記録を消さない)。
+ *
+ * @param songs - 検証済みの楽曲配列
+ * @returns `SP|ANOTHER|タイトル` 形式のキーから chartId
+ */
 async function importSongs(songs: SongJson[]) {
   await runBatched(
     songs.map((s) =>
@@ -159,6 +210,15 @@ async function importSongs(songs: SongJson[]) {
   return new Map(chartRows.map((r) => [chartKey(r.playStyle, r.difficulty, r.song.title), r.id]));
 }
 
+/**
+ * 1 つの地力表を upsert。JSON に無い帯は削除 (エントリは cascade)。
+ * JSON にあるが songs に無い譜面があれば例外。
+ *
+ * @param sheet - 検証済みシート
+ * @param chartIdByKey - {@link importSongs} の戻り値
+ * @returns 取り込んだ帯数とエントリ数
+ * @throws 参照譜面が songs.json に無いとき
+ */
 async function importSheet(sheet: SheetJson, chartIdByKey: Map<string, number>) {
   const row = await prisma.sheet.upsert({
     where: { slug: sheet.slug },
@@ -225,6 +285,11 @@ async function importSheet(sheet: SheetJson, chartIdByKey: Map<string, number>) 
   return { tiers: sheet.tiers.length, entries: desired.length };
 }
 
+/**
+ * CLI エントリ。`DATA_DIR` が無ければリポジトリの `data/`。
+ *
+ * @returns なし。失敗時は process.exit(1)
+ */
 async function main() {
   console.log(`[import] data dir: ${DATA_DIR}`);
 

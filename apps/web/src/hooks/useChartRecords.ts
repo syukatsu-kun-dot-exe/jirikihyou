@@ -8,6 +8,12 @@ import { api } from "../api";
  */
 export type RecordMap = Readonly<Record<number, ChartRecordDto>>;
 
+/**
+ * 現在ユーザーの記録を API から読み、保存・削除する。
+ * 画面上は楽観的更新し、失敗したら直前の値に戻して例外を再 throw する。
+ *
+ * @returns records は chartId → DTO。loading / error は初回 GET 用
+ */
 export function useChartRecords() {
   const [records, setRecords] = useState<RecordMap>({});
   const [loading, setLoading] = useState(true);
@@ -28,6 +34,14 @@ export function useChartRecords() {
     };
   }, []);
 
+  /**
+   * 記録を upsert。先にローカルを更新し、サーバ成功後に正式な updatedAt で上書きする。
+   *
+   * @param chartId - 対象譜面
+   * @param input - 保存するランプとスコア
+   * @returns サーバが返した DTO
+   * @throws fetch 失敗時。このとき records は保存前に戻る
+   */
   const save = useCallback(async (chartId: number, input: ChartRecordInput): Promise<ChartRecordDto> => {
     let previous: ChartRecordDto | undefined;
     setRecords((prev) => {
@@ -47,6 +61,12 @@ export function useChartRecords() {
     }
   }, []);
 
+  /**
+   * 記録を削除する。楽観的にマップから外し、失敗時は戻す。
+   *
+   * @param chartId - 対象譜面
+   * @throws fetch 失敗時
+   */
   const remove = useCallback(async (chartId: number): Promise<void> => {
     let previous: ChartRecordDto | undefined;
     setRecords((prev) => {

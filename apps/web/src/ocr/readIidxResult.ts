@@ -3,27 +3,45 @@ import { maxExScore } from "@jirikihyou/shared";
 import { PSM } from "tesseract.js";
 import { recognizePage, type OcrLine, type OcrWord } from "./tesseract";
 
+/** {@link readIidxResult} の戻り値。読めなかった項目は null */
 export interface ReadIidxResult {
   clearType: ClearType | null;
   exScore: number | null;
   missCount: number | null;
+  /** デバッグ用。生 OCR + refine で足したテキスト */
   rawText: string;
 }
 
 /** 画像に対する正規化枠 (0〜1)。指定時はこの範囲だけを読む */
 export interface CropNorm {
+  /** 左端 (0 = 画像左) */
   x0: number;
+  /** 上端 */
   y0: number;
+  /** 右端 (1 = 画像右) */
   x1: number;
+  /** 下端 */
   y1: number;
 }
 
+/** 長辺の上限 (px)。これ以上は縮小してから OCR する */
 const MAX_EDGE = 1600;
+/** 受け付ける画像サイズ上限 */
 const MAX_FILE_BYTES = 15 * 1024 * 1024;
 
 /** OCR が CLEAR を CREAR と読むことがある */
+/**
+ * 筐体フォントで CLEAR が CREAR になりやすいので先に直す。
+ *
+ * @param s - 生テキスト
+ */
 const fixTypos = (s: string) => s.replace(/CREAR/gi, "CLEAR");
 
+/**
+ * ランプ照合用に英数字と +/- だけ残す。空白や記号のゆらぎを潰す。
+ *
+ * @param s - 生テキスト
+ */
 const compact = (s: string) => fixTypos(s).toUpperCase().replace(/[^A-Z0-9+\-]/g, "");
 
 /**
@@ -40,6 +58,12 @@ const LAMP_RULES: { type: ClearType; re: RegExp }[] = [
   { type: "CLEAR", re: /N-?CLEAR|(?<![A-Z])CLEAR(?![A-Z])/ },
 ];
 
+/**
+ * テキストに含まれるクリアランプを列挙する。順序は {@link LAMP_RULES} と同じ。
+ *
+ * @param text - OCR 生テキスト
+ * @returns マッチした ClearType。重複あり得る
+ */
 export function findClearTypes(text: string): ClearType[] {
   const src = compact(text);
   const found: ClearType[] = [];
@@ -49,7 +73,13 @@ export function findClearTypes(text: string): ClearType[] {
   return found;
 }
 
-/** 1 種類だけならそれを返す。EXH-CLEAR と H-CLEAR が両方ある行は判定不能 */
+/**
+ * テキストからランプを 1 つに絞る。
+ * 裸の CLEAR は他ランプと共存しがちなので、それ以外が 1 つならそちらを優先する。
+ *
+ * @param text - OCR 生テキスト
+ * @returns 一意に決まったランプ。EXH と H が両方あるなど曖昧なら null
+ */
 export function parseClearTypeFromText(text: string): ClearType | null {
   const found = findClearTypes(text);
   const unique = [...new Set(found)];
@@ -65,7 +95,13 @@ interface LampHit {
   raw: string;
 }
 
-/** 単語・隣接単語からランプ表記を拾う (H CLEAR / EXH-CLEAR など) */
+/**
+ * 単語とその右隣 1〜2 語を連結してランプを拾う。
+ * 「H」と「CLEAR」が別単語になるケース向け。裸の CLEAR は他が無いときだけ採用。
+ *
+ * @param words - ページ上の単語 (bbox 付き)
+ * @returns ヒット位置。同じランプが複数回出ることがある
+ */
 export function findLampHits(words: OcrWord[]): LampHit[] {
   const hits: LampHit[] = [];
   const texts = words.map((w) => compact(w.text));
@@ -90,6 +126,13 @@ export function findLampHits(words: OcrWord[]): LampHit[] {
   return hits;
 }
 
+/**
+ * bbox 内ピクセルの平均輝度 (ITU-R BT.601)。透明画素は無視する。
+ *
+ * @param ctx - 元画像の 2D コンテキスト
+ * @param bbox - 画像座標 (px)
+ * @returns 0〜255。画素が無ければ 0
+ */
 function meanLuma(ctx: CanvasRenderingContext2D, bbox: OcrWord["bbox"]): number {
   const x0 = Math.max(0, Math.floor(bbox.x0));
   const y0 = Math.max(0, Math.floor(bbox.y0));
@@ -112,7 +155,14 @@ function meanLuma(ctx: CanvasRenderingContext2D, bbox: OcrWord["bbox"]): number 
   return n === 0 ? 0 : sum / n;
 }
 
-/** 複数ランプが写っているときは、より明るい (選択中) 方を採用 */
+/**
+ * 複数ランプが写っているときは、より明るい (筐体で選択中) 方を採用する。
+ * ctx が無いときはテキスト規則だけにフォールバックする。
+ *
+ * @param hits - {@link findLampHits} の結果
+ * @param ctx - 輝度比較用。null なら明るさを見ない
+ * @returns 選択中とみなしたランプ。ヒット無しなら null
+ */
 export function pickSelectedLamp(hits: LampHit[], ctx: CanvasRenderingContext2D | null): ClearType | null {
   if (hits.length === 0) return null;
   const unique = [...new Set(hits.map((h) => h.type))];
@@ -130,6 +180,13 @@ export function pickSelectedLamp(hits: LampHit[], ctx: CanvasRenderingContext2D 
   return best?.type ?? null;
 }
 
+/**
+ * 正規表現の第 1 キャプチャを整数として取る。
+ *
+ * @param text - 対象文字列
+ * @param re - キャプチャ付きの正規表現
+ * @returns パースできた整数。失敗時は null
+ */
 function matchInt(text: string, re: RegExp): number | null {
   const m = fixTypos(text).match(re);
   const raw = m?.[1];
@@ -138,6 +195,13 @@ function matchInt(text: string, re: RegExp): number | null {
   return Number.isFinite(n) ? n : null;
 }
 
+/**
+ * 行から整数だけ拾う。O は数字の隣にあるときだけ 0 とみなす
+ * (COUNT を C0UNT に壊さないため)。パーセント値は捨てる。
+ *
+ * @param text - 1 行分
+ * @returns 出現順の整数
+ */
 function extractInts(text: string): number[] {
   const cleaned = fixTypos(text)
     .replace(/(?<=\d)O|O(?=\d)/g, "0")
@@ -145,6 +209,11 @@ function extractInts(text: string): number[] {
   return [...cleaned.matchAll(/\d+/g)].map((m) => Number.parseInt(m[0], 10)).filter((n) => Number.isFinite(n));
 }
 
+/**
+ * EX SCORE 行か。PACEMAKER / BEST 単独は目標値なので除外する。
+ *
+ * @param t - 1 行
+ */
 const isScoreLabelLine = (t: string) => {
   const u = fixTypos(t).toUpperCase();
   if (/PACE\s*MAKER|PACEMAKER/.test(u)) return false;
@@ -152,9 +221,19 @@ const isScoreLabelLine = (t: string) => {
   return /EX\s*SCORE|EXスコア|(?<![A-Z])S[CO0]{2}RE/.test(u);
 };
 
+/** MISS COUNT / ミス 行か */
 const isMissLine = (t: string) => /MISS|ミス/.test(fixTypos(t).toUpperCase());
+/** MAX- (理論値との差) 行か。EX 復元に使う */
 const isMaxMinusLine = (t: string) => /MAX\s*-|MAX-/.test(fixTypos(t).toUpperCase());
 
+/**
+ * 行単位で EX スコアとミスカウントを読む。
+ * ラベル行が無いときは MAX- とのペア、なければ範囲内の最大値で推測する。
+ *
+ * @param lines - OCR 行。bbox は不要
+ * @param notes - 譜面ノーツ数。分かれば上限 (notes*2) で EX を検証できる
+ * @returns 読めなければ各フィールド null
+ */
 export function parseScoresFromLines(
   lines: { text: string }[],
   notes: number | null,
@@ -166,6 +245,7 @@ export function parseScoresFromLines(
   const allNums: number[] = [];
 
   for (const line of lines) {
+    // 目標スコア行。プレイ結果の EX / MISS と混同しやすいので捨てる
     if (/PACE\s*MAKER|PACEMAKER/.test(fixTypos(line.text).toUpperCase())) continue;
     const nums = extractInts(line.text);
     allNums.push(...nums);
@@ -186,6 +266,7 @@ export function parseScoresFromLines(
 
   if (ex != null && max != null && ex > max) ex = null;
 
+  // 同じページに EX と MAX- が両方あるときは、和が理論値になる組を優先
   if (ex == null && max != null) {
     const found = allNums.find((a) => a >= Math.floor(max * 0.2) && a <= max && allNums.includes(max - a));
     if (found != null) ex = found;
@@ -216,7 +297,13 @@ export function parseScoresFromLines(
   return { exScore: ex, missCount: miss };
 }
 
-/** テスト / フォールバック用。行情報がないときは全文を 1 行として扱う */
+/**
+ * テスト / フォールバック用。改行で行分割して {@link parseScoresFromLines} に渡す。
+ * 英単語境界では切らない (MISS COUNT 1 を壊すため)。
+ *
+ * @param text - 全文
+ * @param notes - 譜面ノーツ数。不明なら null
+ */
 export function parseScoresFromText(
   text: string,
   notes: number | null,
@@ -227,6 +314,13 @@ export function parseScoresFromText(
   );
 }
 
+/**
+ * 画像 Blob をキャンバスへ描く。長辺が {@link MAX_EDGE} を超えたら縮小する。
+ *
+ * @param file - 画像ファイル
+ * @returns 描画済みキャンバス
+ * @throws デコード失敗、または 2D コンテキストが取れないとき
+ */
 function loadToCanvas(file: Blob): Promise<HTMLCanvasElement> {
   return new Promise((resolve, reject) => {
     const url = URL.createObjectURL(file);
@@ -253,7 +347,12 @@ function loadToCanvas(file: Blob): Promise<HTMLCanvasElement> {
   });
 }
 
-/** 白い HUD 文字を残し、ジャケットや暗い背景を落とす */
+/**
+ * 白い HUD 文字を残し、ジャケットや暗い背景を落とす 2 値化に近い強調。
+ *
+ * @param src - 切り出し済み画像
+ * @returns 新しいキャンバス。コンテキストが取れなければ src をそのまま返す
+ */
 function enhanceForOcr(src: HTMLCanvasElement): HTMLCanvasElement {
   const canvas = document.createElement("canvas");
   canvas.width = src.width;
@@ -275,6 +374,15 @@ function enhanceForOcr(src: HTMLCanvasElement): HTMLCanvasElement {
   return canvas;
 }
 
+/**
+ * 正規化座標 (0〜1) で切り出す。
+ *
+ * @param src - 元画像
+ * @param x0 - 左 (0〜1)
+ * @param y0 - 上
+ * @param x1 - 右
+ * @param y1 - 下
+ */
 function crop(src: HTMLCanvasElement, x0: number, y0: number, x1: number, y1: number): HTMLCanvasElement {
   return cropPx(
     src,
@@ -285,6 +393,15 @@ function crop(src: HTMLCanvasElement, x0: number, y0: number, x1: number, y1: nu
   );
 }
 
+/**
+ * ピクセル座標で切り出す。範囲は画像内にクランプする。
+ *
+ * @param src - 元画像
+ * @param x0 - 左 (px)
+ * @param y0 - 上 (px)
+ * @param x1 - 右 (px)
+ * @param y1 - 下 (px)
+ */
 function cropPx(src: HTMLCanvasElement, x0: number, y0: number, x1: number, y1: number): HTMLCanvasElement {
   const sx = Math.max(0, Math.floor(Math.min(x0, x1)));
   const sy = Math.max(0, Math.floor(Math.min(y0, y1)));
@@ -297,6 +414,13 @@ function cropPx(src: HTMLCanvasElement, x0: number, y0: number, x1: number, y1: 
   return canvas;
 }
 
+/**
+ * 高品質スムージングで拡大する。小さい HUD 文字を Tesseract に渡しやすくする。
+ *
+ * @param src - 切り出し画像
+ * @param factor - 倍率 (1 超を想定)
+ * @returns 拡大キャンバス。コンテキストが取れなければ src
+ */
 function upscale(src: HTMLCanvasElement, factor: number): HTMLCanvasElement {
   const canvas = document.createElement("canvas");
   canvas.width = Math.round(src.width * factor);
@@ -309,7 +433,14 @@ function upscale(src: HTMLCanvasElement, factor: number): HTMLCanvasElement {
   return canvas;
 }
 
-/** EXH-CLEAR と H- 断片が同時にある = 筐体で H-CLEAR も読めた */
+/**
+ * EXH-CLEAR を除いた残りに `H-` がある = 筐体で H-CLEAR も読めた、とみなして HARD にする。
+ * 選択ランプが EX_HARD のときだけ適用する。
+ *
+ * @param text - 生テキスト (複数ページ結合可)
+ * @param type - 暫定ランプ
+ * @returns HARD に倒すか、そのまま
+ */
 function preferHardIfBothLamps(text: string, type: ClearType | null): ClearType | null {
   if (type !== "EX_HARD") return type;
   const stripped = text.toUpperCase().replace(/EXH[\s-]*CLEAR/g, " ");
@@ -317,6 +448,12 @@ function preferHardIfBothLamps(text: string, type: ClearType | null): ClearType 
   return type;
 }
 
+/**
+ * 生画像と強調画像など、複数回の OCR 結果を連結する。
+ *
+ * @param pages - 結合するページ
+ * @returns テキストは改行結合、lines/words は連結
+ */
 function mergePages(pages: { text: string; lines: OcrLine[]; words: OcrWord[] }[]) {
   return {
     text: pages.map((p) => p.text).join("\n"),
@@ -325,6 +462,19 @@ function mergePages(pages: { text: string; lines: OcrLine[]; words: OcrWord[] }[
   };
 }
 
+/**
+ * リザルト画像からクリアタイプ / EX スコア / ミスカウントを読む。
+ * 保存はしない。呼び出し側がフォームへ流し込んで確認する想定。
+ *
+ * cropRect があるときはその範囲だけを読む (追加の左下・中央クロップはしない)。
+ * 無いときは筐体写真向けに左 HUD を自動切り出し、足りなければ下段・中央を足す。
+ *
+ * @param file - 画像 Blob (15MB まで)
+ * @param notes - 譜面ノーツ数。EX の上限判定に使う。不明なら null
+ * @param cropRect - ユーザー指定の正規化枠。省略時は自動切り出し
+ * @returns 読めた項目と結合 rawText。読めない項目は null
+ * @throws ファイルサイズ / MIME 不正、画像デコード失敗
+ */
 export async function readIidxResult(file: Blob, notes: number | null, cropRect?: CropNorm | null): Promise<ReadIidxResult> {
   if (file.size > MAX_FILE_BYTES) {
     throw new Error("画像が大きすぎます (15MB まで)");
@@ -348,6 +498,7 @@ export async function readIidxResult(file: Blob, notes: number | null, cropRect?
   let clearType = pickSelectedLamp(findLampHits(page.words), ctx);
   clearType ??= parseClearTypeFromText(page.text);
   const compactAll = compact(page.text);
+  // EX-HARD 表記だけで EXH-CLEAR が無いときは、H-CLEAR との混同を避けるため EX_HARD で確定
   if (/EX-?HARD/.test(compactAll) && !/EXH-?CLEAR/.test(compactAll)) clearType = "EX_HARD";
   let { exScore, missCount } = parseScoresFromLines(page.lines, notes);
 
@@ -378,6 +529,15 @@ export async function readIidxResult(file: Blob, notes: number | null, cropRect?
   return { clearType, exScore, missCount, rawText: `${page.text}\n${refined.extraText}` };
 }
 
+/**
+ * 筐体 HUD 向けの再認識。EXH-CLEAR ヒットの右隣を切り直して H-CLEAR か判定し、
+ * ミスが未取得なら SCORE 直下 (または中央帯) を 1 行 OCR する。
+ *
+ * @param source - 拡大済みの対象領域
+ * @param words - 既に得ている単語
+ * @param current - ここまでの推定値
+ * @returns 更新したランプ / ミスと、追加で読んだテキスト
+ */
 async function refineCabinetFields(
   source: HTMLCanvasElement,
   words: OcrWord[],

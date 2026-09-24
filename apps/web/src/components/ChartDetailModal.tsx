@@ -31,6 +31,18 @@ interface Props {
   onSelect: (entry: SheetEntryDto) => void;
 }
 
+/**
+ * 譜面カード用の詳細ダイアログ。記録タブ (保存・OCR) と楽曲詳細タブ。
+ * entry が null のときは閉じた空の dialog だけ残し、再オープン時に showModal する。
+ *
+ * @param props.sheet - 表示中の地力表 (兄弟譜面の探索に使う)
+ * @param props.entry - 開いているエントリ。null なら閉じる
+ * @param props.record - その譜面の保存済み記録
+ * @param props.onSaveRecord - PUT
+ * @param props.onRemoveRecord - DELETE
+ * @param props.onClose - Esc / 背景クリック / ×
+ * @param props.onSelect - 同じ楽曲の別譜面へ切り替え
+ */
 export function ChartDetailModal({ sheet, entry, record, onSaveRecord, onRemoveRecord, onClose, onSelect }: Props) {
   const ref = useRef<HTMLDialogElement>(null);
   const [tab, setTab] = useState<Tab>("record");
@@ -157,6 +169,12 @@ interface RecordFormProps {
   onRemove: (chartId: number) => Promise<void>;
 }
 
+/**
+ * 数値入力欄の文字列を非負整数にする。空は未入力。
+ *
+ * @param s - input value
+ * @returns 整数。空・不正・負数は null
+ */
 const toInt = (s: string): number | null => {
   const t = s.trim();
   if (!t) return null;
@@ -164,6 +182,15 @@ const toInt = (s: string): number | null => {
   return Number.isNaN(n) || n < 0 ? null : n;
 };
 
+/**
+ * クリアタイプ / EX / ミスの編集フォーム。OCR はフィールドを埋めるだけで保存しない。
+ *
+ * @param props.chartId - PUT/DELETE の対象
+ * @param props.notes - DJ LEVEL と EX 上限用
+ * @param props.record - 既存記録。無ければ未登録
+ * @param props.onSave - 保存
+ * @param props.onRemove - 削除
+ */
 function RecordForm({ chartId, notes, record, onSave, onRemove }: RecordFormProps) {
   const [clearType, setClearType] = useState<ClearType>(record?.clearType ?? "NO_PLAY");
   const [exScore, setExScore] = useState(record?.exScore?.toString() ?? "");
@@ -182,6 +209,12 @@ function RecordForm({ chartId, notes, record, onSave, onRemove }: RecordFormProp
   const exTooLarge = ex != null && max != null && ex > max;
   const rate = ex != null && max ? (ex / max) * 100 : null;
 
+  /**
+   * 保存・削除の共通 busy / エラー処理。
+   *
+   * @param action - API 呼び出し
+   * @param onDone - 成功時 (保存時刻表示やフォームリセット)
+   */
   const run = async (action: () => Promise<unknown>, onDone: () => void) => {
     setBusy(true);
     setError(null);
@@ -195,6 +228,11 @@ function RecordForm({ chartId, notes, record, onSave, onRemove }: RecordFormProp
     }
   };
 
+  /**
+   * フォーム submit。EX が理論値超え、または通信中は送らない。
+   *
+   * @param e - submit イベント
+   */
   const submit = (e: FormEvent) => {
     e.preventDefault();
     if (exTooLarge || busy) return;
@@ -204,6 +242,7 @@ function RecordForm({ chartId, notes, record, onSave, onRemove }: RecordFormProp
     );
   };
 
+  /** 記録削除後、フォームを NO PLAY / 空欄に戻す */
   const removeRecord = () =>
     void run(
       () => onRemove(chartId),
@@ -310,6 +349,11 @@ function RecordForm({ chartId, notes, record, onSave, onRemove }: RecordFormProp
 
 // ---------- 楽曲詳細タブ ----------
 
+/**
+ * 楽曲メタ情報の定義リスト。値が無い項目は「—」。
+ *
+ * @param props.entry - 表示中のシートエントリ
+ */
 function DetailPanel({ entry }: { entry: SheetEntryDto }) {
   const { chart } = entry;
   const { song } = chart;
