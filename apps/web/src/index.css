@@ -406,6 +406,21 @@ h2 {
 .ocr-hint {
   margin: 0;
 }
+.ocr-preview {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px 12px;
+  margin: 0;
+  font-size: 0.9rem;
+}
+.ocr-preview.pending {
+  opacity: 0.55;
+}
+.ocr-preview-status {
+  font-size: 0.8rem;
+  color: var(--muted);
+}
 .ocr-crop {
   position: relative;
   width: 100%;

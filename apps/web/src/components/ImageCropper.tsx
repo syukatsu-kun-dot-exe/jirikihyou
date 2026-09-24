@@ -39,6 +39,10 @@ interface Props {
   src: string;
   value: CropNorm;
   onChange: (rect: CropNorm) => void;
+  /** ドラッグ開始。進行中の OCR を捨てるために使う */
+  onInteractStart?: () => void;
+  /** ドラッグ終了 (pointerup / cancel)。最新の枠を渡す */
+  onCommit?: (rect: CropNorm) => void;
   disabled?: boolean;
 }
 
@@ -48,12 +52,16 @@ interface Props {
  *
  * @param props.src - object URL
  * @param props.value - 現在の枠
- * @param props.onChange - 枠が変わったとき
- * @param props.disabled - OCR 中など操作を止めるとき
+ * @param props.onChange - 枠が変わったとき (ドラッグ中も毎フレーム)
+ * @param props.onInteractStart - ポインタを押したとき
+ * @param props.onCommit - ポインタを離したとき。最新枠を渡す
+ * @param props.disabled - 保存中など操作を止めるとき。OCR 中は止めない想定
  */
-export function ImageCropper({ src, value, onChange, disabled }: Props) {
+export function ImageCropper({ src, value, onChange, onInteractStart, onCommit, disabled }: Props) {
   const stageRef = useRef<HTMLDivElement>(null);
   const drag = useRef<{ handle: Handle; startX: number; startY: number; origin: CropNorm } | null>(null);
+  const latestRef = useRef(value);
+  latestRef.current = value;
   const [active, setActive] = useState(false);
 
   /**
@@ -81,10 +89,15 @@ export function ImageCropper({ src, value, onChange, disabled }: Props) {
     if (disabled) return;
     e.preventDefault();
     e.stopPropagation();
-    (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
+    try {
+      (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
+    } catch {
+      // 合成イベントなど、キャプチャできない環境でもドラッグは続ける
+    }
     const p = toNorm(e.clientX, e.clientY);
     drag.current = { handle, startX: p.x, startY: p.y, origin: value };
     setActive(true);
+    onInteractStart?.();
   };
 
   /**
@@ -98,7 +111,9 @@ export function ImageCropper({ src, value, onChange, disabled }: Props) {
     const p = toNorm(e.clientX, e.clientY);
     const { origin } = d;
     if (d.handle === "draw") {
-      onChange(clampCrop({ x0: d.startX, y0: d.startY, x1: p.x, y1: p.y }));
+      const next = clampCrop({ x0: d.startX, y0: d.startY, x1: p.x, y1: p.y });
+      latestRef.current = next;
+      onChange(next);
       return;
     }
     const dx = p.x - d.startX;
@@ -125,13 +140,20 @@ export function ImageCropper({ src, value, onChange, disabled }: Props) {
       if (d.handle.includes("n")) next.y0 = origin.y0 + dy;
       if (d.handle.includes("s")) next.y1 = origin.y1 + dy;
     }
-    onChange(clampCrop(next));
+    const clamped = clampCrop(next);
+    latestRef.current = clamped;
+    onChange(clamped);
   };
 
-  /** ドラッグ終了。pointercancel でも同じ処理 */
+  /**
+   * ドラッグ終了。pointercancel でも同じ処理。
+   * 親の setState が追いついていなくても latestRef の枠を渡す。
+   */
   const onUp = () => {
+    const hadDrag = drag.current != null;
     drag.current = null;
     setActive(false);
+    if (hadDrag && !disabled) onCommit?.(latestRef.current);
   };
 
   const { x0, y0, x1, y1 } = value;
