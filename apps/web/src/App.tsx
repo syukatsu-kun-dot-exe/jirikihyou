@@ -85,6 +85,11 @@ export function App() {
   const shownEntries = filteredTiers.reduce((sum, t) => sum + t.entries.length, 0);
 
   /**
+   * 楽曲名検索を空にする。ネイティブの search クリアは実機 Safari / Chrome に出ないため自前で消す。
+   */
+  const clearQuery = () => setQuery("");
+
+  /**
    * バージョンチップの複数選択を切り替える。同じ番号をもう一度押すと外す。
    *
    * @param n - {@link VERSIONS} の number (1 = 1st style)
@@ -144,13 +149,21 @@ export function App() {
           </div>
 
           <div className="toolbar">
-            <input
-              type="search"
-              className="search"
-              placeholder="楽曲名で検索..."
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-            />
+            <div className="search-wrap">
+              <input
+                type="search"
+                className="search"
+                placeholder="楽曲名で検索..."
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                enterKeyHint="search"
+              />
+              {query.length > 0 && (
+                <button type="button" className="search-clear" aria-label="検索をクリア" onClick={clearQuery}>
+                  ×
+                </button>
+              )}
+            </div>
             {isFiltering && (
               <span className="muted small">
                 {shownEntries} / {totalEntries} 件
