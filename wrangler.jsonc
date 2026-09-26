@@ -1,0 +1,8 @@
+{
+  "name": "jirikihyou",
+  "compatibility_date": "2026-09-26",
+  "assets": {
+    "directory": "./apps/web/dist",
+    "not_found_handling": "single-page-application"
+  }
+}
