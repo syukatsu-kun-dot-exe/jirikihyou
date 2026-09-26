@@ -41,6 +41,7 @@ export function App() {
   const [query, setQuery] = useState("");
   const [selectedVersions, setSelectedVersions] = useState<ReadonlySet<number>>(new Set());
   const [selectedEntry, setSelectedEntry] = useState<SheetEntryDto | null>(null);
+  const [collapsedTierIds, setCollapsedTierIds] = useState<ReadonlySet<number>>(new Set());
   const { records, error: recordsError, save: saveRecord, remove: removeRecord } = useChartRecords();
 
   useEffect(() => {
@@ -88,6 +89,30 @@ export function App() {
    * 楽曲名検索を空にする。ネイティブの search クリアは実機 Safari / Chrome に出ないため自前で消す。
    */
   const clearQuery = () => setQuery("");
+
+  /**
+   * 表示中の帯をすべて折りたたむ。カードは隠し、帯名と件数だけ残す。
+   */
+  const collapseAllTiers = () =>
+    setCollapsedTierIds(new Set(filteredTiers.filter((t) => !isFiltering || t.entries.length > 0).map((t) => t.id)));
+
+  /**
+   * すべての帯を展開する。
+   */
+  const expandAllTiers = () => setCollapsedTierIds(new Set());
+
+  /**
+   * 1 つの帯の開閉を切り替える。
+   *
+   * @param tierId - SheetTier.id
+   */
+  const toggleTier = (tierId: number) =>
+    setCollapsedTierIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(tierId)) next.delete(tierId);
+      else next.add(tierId);
+      return next;
+    });
 
   /**
    * バージョンチップの複数選択を切り替える。同じ番号をもう一度押すと外す。
@@ -164,6 +189,14 @@ export function App() {
                 </button>
               )}
             </div>
+            <div className="tier-fold" role="group" aria-label="帯の開閉">
+              <button type="button" className="chip" onClick={collapseAllTiers}>
+                折りたたむ
+              </button>
+              <button type="button" className="chip" onClick={expandAllTiers}>
+                展開
+              </button>
+            </div>
             {isFiltering && (
               <span className="muted small">
                 {shownEntries} / {totalEntries} 件
@@ -173,13 +206,22 @@ export function App() {
 
           {filteredTiers.map((tier) => {
             if (isFiltering && tier.entries.length === 0) return null;
+            const collapsed = collapsedTierIds.has(tier.id);
             return (
-              <div key={tier.id} className="tier">
+              <div key={tier.id} className={`tier ${collapsed ? "collapsed" : ""}`}>
                 <h3 className={`tier-name ${tier.kind.toLowerCase()}`}>
-                  {tier.name}
-                  <span className="count">{tier.entries.length}</span>
+                  <button
+                    type="button"
+                    className="tier-toggle"
+                    aria-expanded={!collapsed}
+                    onClick={() => toggleTier(tier.id)}
+                  >
+                    <span className="tier-chevron" aria-hidden="true" />
+                    {tier.name}
+                    <span className="count">{tier.entries.length}</span>
+                  </button>
                 </h3>
-                {tier.entries.length === 0 ? (
+                {collapsed ? null : tier.entries.length === 0 ? (
                   <p className="muted small">（なし）</p>
                 ) : (
                   <ul className="grid">
