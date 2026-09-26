@@ -29,3 +29,4 @@ Thumbs.db
 
 # data (楽曲マスタ等の生データは原則コミットしない)
 data/raw/
+.neon

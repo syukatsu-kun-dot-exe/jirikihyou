@@ -8,7 +8,13 @@ import type {
 } from "@jirikihyou/shared";
 
 /**
- * `/api` への fetch ラッパ。Vite が api コンテナへプロキシする。
+ * 本番ビルドでは `VITE_API_BASE`（例: `https://xxx.onrender.com`）を付ける。
+ * 未設定のときは `/api` のままで、開発時は Vite が api コンテナへプロキシする。
+ */
+const apiBase = (import.meta.env.VITE_API_BASE ?? "").replace(/\/$/, "");
+
+/**
+ * `/api` への fetch ラッパ。
  * 失敗時は `{ error }` があればその文言、無ければ HTTP ステータスを Error にする。
  *
  * @typeParam T - 成功時の JSON 型。204 は `undefined`
@@ -18,7 +24,7 @@ import type {
  * @throws Error 非 2xx のとき
  */
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
-  const res = await fetch(path, init);
+  const res = await fetch(`${apiBase}${path}`, init);
   if (!res.ok) {
     let message = `${res.status} ${res.statusText}`;
     try {

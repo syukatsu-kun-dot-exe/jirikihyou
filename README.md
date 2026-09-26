@@ -11,6 +11,8 @@ beatmania IIDX の地力表（難易度参考表）サイト。個人開発・�
 | ORM / DB | Prisma + PostgreSQL 16 |
 | 共有型 | `packages/shared` |
 | 開発環境 | Docker Compose (web / api / db) |
+| 公開 DB | Neon (PostgreSQL)、ブランチ `production` |
+| 公開 API | Render (Docker) |
 | パッケージ管理 | pnpm workspace (monorepo) |
 
 ## ディレクトリ構成
@@ -55,6 +57,44 @@ docker compose up --build
 docker compose down        # コンテナ停止
 docker compose down -v     # DB データも削除
 ```
+
+ローカルの Docker は `.env.local` を使わず、上の localhost の Postgres に接続します。
+
+## 公開 (DB と API)
+
+フロントは未公開です。データベースと API だけを次の構成で公開しています。
+
+| 役割 | サービス | 場所 |
+|---|---|---|
+| DB | [Neon](https://neon.tech) | プロジェクト `snowy-night-80221403`、ブランチ `production` |
+| API | [Render](https://render.com) Web Service | リポジトリ `main`、Dockerfile は `apps/api/Dockerfile` |
+
+接続文字列は Git に入れません。ローカルでは `jirikihyou` 直下の `.env.local`（gitignore 済み）にあります。フォルダと Neon の対応は `.neon` に書いてあります。
+
+| 変数 | 用途 |
+|---|---|
+| `DATABASE_URL_UNPOOLED` | Render の環境変数 `DATABASE_URL` に入れる値。起動時のマイグレーションもこれを使う |
+| `DATABASE_URL` | プール用。今回の API 起動では使わない |
+| `NEON_BRANCH` | `production` |
+
+Render の設定:
+
+| 項目 | 値 |
+|---|---|
+| Language | Docker |
+| Root Directory | 空（リポジトリ直下） |
+| Dockerfile Path | `apps/api/Dockerfile` |
+| Health Check Path | `/health` |
+| Environment | `DATABASE_URL` = `.env.local` の `DATABASE_URL_UNPOOLED` |
+
+この Dockerfile は起動のたびに `prisma migrate deploy` → `data/` の取り込み → 開発サーバ起動を行います。取り込みはマスタの上書きで、`ChartRecord` は消しません。無料枠はしばらくアクセスがないとスリープし、次のリクエストで起動に数十秒かかります。
+
+公開後の確認:
+
+- `https://<Render のホスト>/api/health` が `"db":"ok"`
+- `https://<Render のホスト>/api/sheets` に地力表の JSON が返る
+
+初回データは、ローカル Postgres の `pg_dump` を Neon の非プール接続へ `pg_restore` して載せています（Song 643、Chart 675、Sheet 1、Tier 20、SheetEntry 675、User 1、ChartRecord 1）。マスタだけ更新するときは、同じ `DATABASE_URL` で API を再起動すれば `db:import` が反映します。
 
 ## 開発時のメモ
 
